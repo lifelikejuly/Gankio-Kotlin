@@ -8,22 +8,16 @@
         android:checkableBehavior="single"
         >
         <item
-            android:id="@+id/navigation_main"
+            android:id="@+id/navigation_daily"
             android:icon="@drawable/ic_apps"
             android:checked="true"
-            android:title="首页"
+            android:title="每日"
             />
         <item
-            android:id="@+id/navigation_local_ablum"
+            android:id="@+id/navigation_meizi"
             android:icon="@drawable/ic_ablum"
-            android:title="本地图库"
+            android:title="妹子"
             />
-        <item
-            android:id="@+id/navigation_collection"
-            android:icon="@drawable/ic_collection"
-            android:title="收藏夹"
-            />
-
     </group>
     <item
         android:title="@string/app_name"
