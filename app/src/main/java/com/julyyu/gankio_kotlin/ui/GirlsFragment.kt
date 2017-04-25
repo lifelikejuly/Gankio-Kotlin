@@ -55,7 +55,10 @@ class GirlsFragment : Fragment(){
         subscription = RxBus.observe<GirlGoEvent>()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { takeGirls(it.girls) }
-
+//        subscription = FastBus().getInstance()
+//                .observe<GirlGoEvent>()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe { takeGirls(it.girls) }
         recyclerView.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {

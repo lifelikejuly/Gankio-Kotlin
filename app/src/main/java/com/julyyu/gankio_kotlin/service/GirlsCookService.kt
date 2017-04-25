@@ -46,6 +46,7 @@ class GirlsCookService : Service() {
 
                     }
                     RxBus.post(GirlGoEvent(girls,""))
+//                    FastBus().getInstance().post(GirlGoEvent(girls,""))
                     stopSelf()
                 }
         return super.onStartCommand(intent, flags, startId)

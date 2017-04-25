@@ -13,26 +13,10 @@ import java.util.*
  */
 object RxBus{
 
-//    @Volatile private var instance: RxBus ?= null
     val bus = SerializedSubject(PublishSubject.create<Any>())
     private val subscriptionsMap: HashMap<Any, CompositeSubscription?> by lazy {
         HashMap<Any, CompositeSubscription?>()
     }
-
-//    constructor(){
-//        bus = SerializedSubject(PublishSubject.create())
-//    }
-//
-//    fun getInstance() : RxBus{
-//        if (instance == null) {
-//            synchronized(RxBus::class.java) {
-//                if (instance == null) {
-//                    instance = RxBus()
-//                }
-//            }
-//        }
-//        return instance as RxBus
-//    }
 
     fun post(o : Any){
         bus!!.onNext(o as Object?)
