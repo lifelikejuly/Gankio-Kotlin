@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.AppCompatImageView
+<com.julyyu.gankio_kotlin.widget.AdaptiveImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iv_meizi"
     android:orientation="vertical"
@@ -8,4 +8,4 @@
     android:scaleType="centerCrop"
     >
 
-</android.support.v7.widget.AppCompatImageView>
+</com.julyyu.gankio_kotlin.widget.AdaptiveImageView>

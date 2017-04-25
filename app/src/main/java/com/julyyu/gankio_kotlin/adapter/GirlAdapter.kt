@@ -5,12 +5,13 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.model.Gank
+import com.julyyu.gankio_kotlin.model.Girl
 import kotlinx.android.synthetic.main.item_meizi.view.*
 
 /**
  * Created by JulyYu on 2017/4/24.
  */
-class GirlAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank, GirlAdapter.GirlViewHolder>(gank) {
+class GirlAdapter(girls: ArrayList<Girl>) : BaseAdapter<Girl, GirlAdapter.GirlViewHolder>(girls) {
 
 
     override fun getViewHolderLayout(): Int {
@@ -22,9 +23,10 @@ class GirlAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank, GirlAdapter.GirlVie
         return GirlViewHolder(view)
     }
 
-    override fun bindViewHolder(holder: GirlViewHolder, position: Int, data: Gank) {
+    override fun bindViewHolder(holder: GirlViewHolder, position: Int, data: Girl) {
+        holder.itemView.iv_meizi.setOriginalSize(data.girlWidth,data.girlHeight)
         Glide.with(holder.itemView.context)
-                .load(data.url)
+                .load(data.girlHome)
                 .into(holder.itemView.iv_meizi)
     }
 

@@ -1,6 +1,9 @@
 package com.julyyu.gankio_kotlin.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
@@ -16,9 +19,19 @@ import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.GirlAdapter
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankResponse
+import com.julyyu.gankio_kotlin.model.Gank
+import com.julyyu.gankio_kotlin.model.Girl
+import com.julyyu.gankio_kotlin.rx.RxBus
+import com.julyyu.gankio_kotlin.rx.event.GirlGoEvent
+import com.julyyu.gankio_kotlin.service.GirlsCookService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import rx.Scheduler
+import rx.Subscription
+import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
+import kotlin.collections.ArrayList
 
 /**
  * Created by JulyYu on 2017/4/24.
@@ -28,10 +41,10 @@ class GirlsFragment : Fragment(){
     internal var view: View? = null
     internal val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
     internal val recyclerView: RecyclerView by bindView(R.id.recycler)
+    var subscription: Subscription? = null
     var giradapter: GirlAdapter?= null
     var currentPage: Int = 1
     var isLoadingMore = false
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
         return view
@@ -39,7 +52,11 @@ class GirlsFragment : Fragment(){
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
+        subscription = RxBus.observe<GirlGoEvent>()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { takeGirls(it.girls) }
+
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -67,7 +84,23 @@ class GirlsFragment : Fragment(){
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
-        loadMore();
+        loadMore()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        subscription = RxBus().getInstance()
+//                .observe<GirlGoEvent>()
+//                .subscribe(Action1 { girlsGoEvent -> takeGirls(girlsGoEvent.girls)})
+//                .subscribe { Action1<GirlGoEvent> { girlsGoEvent -> takeGirls(girlsGoEvent.girls) } }
+//                .subscribeOn()
+//                .observeOn(AndroidSchedulers().mainThread())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        RxBus.unregister(this)
+           subscription!!.unsubscribe()
     }
     fun loadMore(){
         ApiFactory().getGankApi()
@@ -76,18 +109,30 @@ class GirlsFragment : Fragment(){
                     override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
                         if (response != null && response.isSuccessful()) {
                             currentPage++
-                            if (recyclerView.adapter == null){
-                                giradapter = GirlAdapter(response.body().results!!)
-                                recyclerView?.adapter = giradapter
-                            }else{
-                                giradapter!!.add(response.body().results!!)
-                            }
+                            cookGirls(response.body().results!!)
                         }
                     }
-
                     override fun onFailure(call: Call<GankResponse>, t: Throwable) {
-
+                        Snackbar.make(swipeFreshLayout,"妹子加载失败",Snackbar.LENGTH_SHORT).show()
                     }
                 })
+    }
+
+    fun cookGirls(ganks : ArrayList<Gank>){
+        val girlses = ArrayList<Girl>()
+        for (gank in ganks) {
+            girlses.add(Girl(gank.url!!))
+        }
+        val intent = Intent(activity, GirlsCookService::class.java)
+        intent.putParcelableArrayListExtra("Girls", girlses as ArrayList<out Parcelable>)
+        activity.startService(intent)
+    }
+    fun takeGirls(girls : ArrayList<Girl>){
+        if(recyclerView.adapter == null){
+            giradapter = GirlAdapter(girls)
+            recyclerView.adapter = giradapter
+        }else{
+            giradapter!!.add(girls)
+        }
     }
 }
