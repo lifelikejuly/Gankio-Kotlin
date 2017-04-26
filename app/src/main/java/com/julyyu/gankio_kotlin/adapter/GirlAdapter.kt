@@ -13,11 +13,9 @@ import kotlinx.android.synthetic.main.item_meizi.view.*
  */
 class GirlAdapter(girls: ArrayList<Girl>) : BaseAdapter<Girl, GirlAdapter.GirlViewHolder>(girls) {
 
-
-    override fun getViewHolderLayout(): Int {
+    override fun getViewHolderLayout(viewType: Int): Int {
         return R.layout.item_meizi
     }
-
 
     override fun setViewHolder(view: View): GirlViewHolder {
         return GirlViewHolder(view)

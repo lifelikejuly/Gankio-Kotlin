@@ -44,19 +44,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         setSupportActionBar(toolbar)
-        ApiFactory().getGankApi()
-                .getGankIoData("Android",10,1)
-                .enqueue(object : Callback<GankResponse> {
-                    override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
-                        if (response != null && response.isSuccessful()) {
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<GankResponse>, t: Throwable) {
-
-                    }
-                })
+//        ApiFactory().getGankApi()
+//                .getGankIoData("Android",10,1)
+//                .enqueue(object : Callback<GankResponse> {
+//                    override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
+//                        if (response != null && response.isSuccessful()) {
+//
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<GankResponse>, t: Throwable) {
+//
+//                    }
+//                })
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar!!.setNavigationIcon(R.drawable.ic_dehaze)
         actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         (actionBarDrawerToggle as ActionBarDrawerToggle).syncState()
         drawerLayout!!.addDrawerListener(actionBarDrawerToggle!!)
         fragmentManager = supportFragmentManager
-        showFragment(tagMain)
+        showFragment(tagDaily)
 //
 //        navigationView!!.setNavigationItemSelectedListener(NavigationItemSelected())
     }
@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
             } else {
                 when (tag) {
-                    tagMain -> showFragment = GirlsFragment()
-//                    tagAblum -> showFragment = AblumFragment()
+                    tagGirl -> showFragment = GirlsFragment()
+                    tagDaily -> showFragment = GankFragment()
 //                    tagCollection -> showFragment = CollectionsFragment()
                 }
                 fragmentManager!!.beginTransaction()
@@ -129,7 +129,8 @@ class MainActivity : AppCompatActivity() {
                         .commit()
             } else {
                 when (tag) {
-                    tagMain -> showFragment = GirlsFragment()
+                    tagGirl -> showFragment = GirlsFragment()
+                    tagDaily -> showFragment = GankFragment()
 //                    tagAblum -> showFragment = AblumFragment()
 //                    tagCollection -> showFragment = CollectionsFragment()
                 }
@@ -147,6 +148,9 @@ class MainActivity : AppCompatActivity() {
         private val tagMain = "main"
         private val tagAblum = "ablum"
         private val tagCollection = "collection"
+
+        private val tagGirl = "girl"
+        private val tagDaily = "daily"
     }
 
 }

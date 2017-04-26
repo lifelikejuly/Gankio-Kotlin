@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.fastjson.FastJsonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 /**
@@ -35,7 +36,8 @@ class RetrofitClientManager {
                 .build()
         retrofit = Retrofit.Builder()
                 .baseUrl(AppConst.GANK_API_URL)
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build()

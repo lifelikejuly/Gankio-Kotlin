@@ -106,7 +106,7 @@ class GirlsFragment : Fragment(){
            subscription!!.unsubscribe()
     }
     fun loadMore(){
-        ApiFactory().getGankApi()
+        ApiFactory.getGankApi()
                 .getGankIoData("福利",10,currentPage)
                 .enqueue(object : Callback<GankResponse> {
                     override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {

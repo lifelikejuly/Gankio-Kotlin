@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.julyyu.gankio_kotlin.model.GankCollection
 
 /**
  * Created by JulyYu on 2017/4/24.
@@ -24,7 +25,7 @@ abstract class BaseAdapter<T,VH : RecyclerView.ViewHolder> : RecyclerView.Adapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
-        val view: View = LayoutInflater.from(parent!!.context).inflate(getViewHolderLayout(),parent,false)
+        val view: View = LayoutInflater.from(parent!!.context).inflate(getViewHolderLayout(viewType),parent,false)
         return setViewHolder(view)
     }
 
@@ -39,7 +40,7 @@ abstract class BaseAdapter<T,VH : RecyclerView.ViewHolder> : RecyclerView.Adapte
         notifyDataSetChanged()
     }
 
-    abstract fun getViewHolderLayout() : Int
+    abstract fun getViewHolderLayout(viewType: Int) : Int
     abstract fun setViewHolder(view: View) : VH
     abstract fun bindViewHolder(holder: VH, position: Int,data: T)
 }
