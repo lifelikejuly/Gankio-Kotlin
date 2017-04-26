@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets{
+    sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
@@ -30,23 +30,23 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+
     compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:cardview-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-	compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-	compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     testCompile 'junit:junit:4.12'
 }
 repositories {

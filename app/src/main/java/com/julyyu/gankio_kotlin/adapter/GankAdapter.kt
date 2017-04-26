@@ -9,6 +9,10 @@ import kotlinx.android.synthetic.main.item_dry.view.*
 import kotlinx.android.synthetic.main.item_dry_pic.view.*
 import kotlinx.android.synthetic.main.item_meizi.view.*
 import java.util.*
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.Intent
+import com.julyyu.gankio_kotlin.ui.WebPageActivity
+
 
 /**
  * Created by JulyYu on 2017/4/26.
@@ -37,6 +41,13 @@ class GankAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank,GankAdapter.GankView
                         .load(data.images?.get(0))
                         .into(holder.itemView.iv_img)
             }
+        }
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, WebPageActivity::class.java)
+            intent.putExtra("url", data.url)
+            intent.putExtra("des", data.desc)
+            context.startActivity(intent)
         }
     }
 
