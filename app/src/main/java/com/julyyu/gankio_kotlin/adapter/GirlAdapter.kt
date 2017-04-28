@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
+import com.julyyu.gankio_kotlin.Route
 import com.julyyu.gankio_kotlin.model.Gank
 import com.julyyu.gankio_kotlin.model.Girl
 import kotlinx.android.synthetic.main.item_meizi.view.*
@@ -26,6 +27,9 @@ class GirlAdapter(girls: ArrayList<Girl>) : BaseAdapter<Girl, GirlAdapter.GirlVi
         Glide.with(holder.itemView.context)
                 .load(data.girlHome)
                 .into(holder.itemView.iv_meizi)
+        holder.itemView.setOnClickListener {
+            Route().visitGirls(holder.itemView.context,datas!!,position)
+        }
     }
 
 
