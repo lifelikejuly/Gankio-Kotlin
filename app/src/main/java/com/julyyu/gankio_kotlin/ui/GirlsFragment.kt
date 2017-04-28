@@ -55,16 +55,11 @@ class GirlsFragment : Fragment(){
         subscription = RxBus.observe<GirlGoEvent>()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { takeGirls(it.girls) }
-//        subscription = FastBus().getInstance()
-//                .observe<GirlGoEvent>()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe { takeGirls(it.girls) }
         recyclerView.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && !isLoadingMore) {
-                    isLoadingMore = true
                     var lastVisiblePosition = 0
                     if (recyclerView!!.layoutManager is LinearLayoutManager) {
                         lastVisiblePosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
@@ -72,10 +67,10 @@ class GirlsFragment : Fragment(){
                         lastVisiblePosition = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
                     } else if (recyclerView.layoutManager is StaggeredGridLayoutManager) {
                         val staggeredGridLayoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
-                        val lastVisible = staggeredGridLayoutManager.findLastVisibleItemPositions(IntArray(staggeredGridLayoutManager.spanCount))
+                        val lastVisible = staggeredGridLayoutManager.findLastVisibleItemPositions(null)
                         lastVisiblePosition = lastVisible[lastVisible.size - 1]
                     }
-                    if (lastVisiblePosition == recyclerView.adapter!!.itemCount - 1) {
+                    if (lastVisiblePosition + 2 >= recyclerView.adapter!!.itemCount - 1) {
                         loadMore()
                     } else {
                         isLoadingMore = false
@@ -87,35 +82,34 @@ class GirlsFragment : Fragment(){
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
+        swipeFreshLayout.isRefreshing = true
         loadMore()
     }
 
     override fun onResume() {
         super.onResume()
-//        subscription = RxBus().getInstance()
-//                .observe<GirlGoEvent>()
-//                .subscribe(Action1 { girlsGoEvent -> takeGirls(girlsGoEvent.girls)})
-//                .subscribe { Action1<GirlGoEvent> { girlsGoEvent -> takeGirls(girlsGoEvent.girls) } }
-//                .subscribeOn()
-//                .observeOn(AndroidSchedulers().mainThread())
     }
 
     override fun onDestroy() {
         super.onDestroy()
-//        RxBus.unregister(this)
            subscription!!.unsubscribe()
     }
     fun loadMore(){
+        isLoadingMore = true
         ApiFactory.getGankApi()
                 .getGankIoData("福利",10,currentPage)
                 .enqueue(object : Callback<GankResponse> {
                     override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
+                        swipeFreshLayout.isRefreshing = false
+                        isLoadingMore = false
                         if (response != null && response.isSuccessful()) {
                             currentPage++
                             cookGirls(response.body().results!!)
                         }
                     }
                     override fun onFailure(call: Call<GankResponse>, t: Throwable) {
+                        swipeFreshLayout.isRefreshing = false
+                        isLoadingMore = false
                         Snackbar.make(swipeFreshLayout,"妹子加载失败",Snackbar.LENGTH_SHORT).show()
                     }
                 })

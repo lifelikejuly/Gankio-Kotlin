@@ -3,6 +3,7 @@ package com.julyyu.gankio_kotlin.ui
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
@@ -32,6 +33,7 @@ class WebPageActivity : AppCompatActivity() {
         }
         val progressbar = findViewById(R.id.progressbar_webview) as ProgressBar
         val webView = findViewById(R.id.web_view) as WebView
+        val swipeRefresh = findViewById(R.id.swipelayout) as SwipeRefreshLayout
         webView.settings.javaScriptEnabled = true
         webView.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
@@ -43,8 +45,10 @@ class WebPageActivity : AppCompatActivity() {
                 super.onProgressChanged(view, newProgress)
                 if (newProgress >= 100) {
                     progressbar.setVisibility(View.GONE)
+                    swipeRefresh.isRefreshing = false
 //                    url = webView.url
                 } else {
+                    swipeRefresh.isRefreshing = true
                     progressbar.setProgress(newProgress)
                     progressbar.setVisibility(View.VISIBLE)
                 }
@@ -54,6 +58,12 @@ class WebPageActivity : AppCompatActivity() {
         val url = intent.getStringExtra("url")
         val des = intent.getStringExtra("des")
         webView.loadUrl(url)
+        title = des
+        swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+            override fun onRefresh() {
+                webView.loadUrl(url)
+            }
+        })
     }
 
 }

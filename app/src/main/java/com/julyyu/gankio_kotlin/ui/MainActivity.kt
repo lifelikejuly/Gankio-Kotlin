@@ -1,17 +1,25 @@
 package com.julyyu.gankio_kotlin.ui
 
+import android.media.Image
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.ImageButton
+import android.widget.ImageView
 
 
 import butterknife.bindView
+import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankApi
@@ -30,11 +38,11 @@ class MainActivity : AppCompatActivity() {
     internal val navigationView: NavigationView by bindView(R.id.design_navigation_view)
     internal val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
     internal var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    internal var headImage: ImageView? = null
+    internal var headFresh: ImageButton? = null
 
     internal var fragmentManager: FragmentManager? = null
     internal var fragment: Fragment? = null
-//    internal var mainFragment: MainFragment? = null
-//    internal var ablumFragment: AblumFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,19 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         setSupportActionBar(toolbar)
-//        ApiFactory().getGankApi()
-//                .getGankIoData("Android",10,1)
-//                .enqueue(object : Callback<GankResponse> {
-//                    override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
-//                        if (response != null && response.isSuccessful()) {
-//
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<GankResponse>, t: Throwable) {
-//
-//                    }
-//                })
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar!!.setNavigationIcon(R.drawable.ic_dehaze)
         actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
@@ -72,34 +67,39 @@ class MainActivity : AppCompatActivity() {
         drawerLayout!!.addDrawerListener(actionBarDrawerToggle!!)
         fragmentManager = supportFragmentManager
         showFragment(tagDaily)
-//
-//        navigationView!!.setNavigationItemSelectedListener(NavigationItemSelected())
+        navigationView!!.setNavigationItemSelectedListener(NavigationItemSelected())
+        val headView = navigationView.inflateHeaderView(R.layout.drawer_header)
+        headImage = headView.findViewById(R.id.iv_img) as ImageView
+        headFresh = headView.findViewById(R.id.iv_fresh) as ImageButton
+        headFresh!!.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+//                freshRotateAnimation(true)
+                takeSingleLady()
+            }
+        })
+        takeSingleLady()
     }
 
-//    private inner class NavigationItemSelected : NavigationView.OnNavigationItemSelectedListener {
-//
-//        fun onNavigationItemSelected(item: MenuItem): Boolean {
-//            when (item.itemId) {
-//                R.id.navigation_main -> {
-//                    item.isChecked = true
-//                    showFragment(tagMain)
-//                }
-//                R.id.navigation_local_ablum -> {
-//                    item.isChecked = true
-//                    showFragment(tagAblum)
-//                }
-//                R.id.navigation_collection -> {
-//                    item.isCheckable = true
-//                    showFragment(tagCollection)
-//                }
+    private inner class NavigationItemSelected : NavigationView.OnNavigationItemSelectedListener {
+
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.navigation_daily -> {
+                    item.isChecked = true
+                    showFragment(tagDaily)
+                }
+                R.id.navigation_girls -> {
+                    item.isChecked = true
+                    showFragment(tagGirl)
+                }
 //                R.id.navigation_setting -> IntentUtil.goSettingActivity(this@MainActivity)
 //                R.id.navigation_about -> IntentUtil.goAboutActivity(this@MainActivity)
-//            }
-//            drawerLayout!!.closeDrawer(GravityCompat.START)
-//            return true
-//        }
-//    }
-//
+            }
+            drawerLayout!!.closeDrawer(GravityCompat.START)
+            return true
+        }
+    }
+
     private fun showFragment(tag: String) {
         if (fragment != null) {
             var showFragment: Fragment? = fragmentManager!!.findFragmentByTag(tag)
@@ -140,6 +140,41 @@ class MainActivity : AppCompatActivity() {
                         .commit()
             }
             fragment = showFragment
+        }
+    }
+    private fun takeSingleLady(){
+        freshRotateAnimation(true)
+        ApiFactory.getGankApi()
+                .getRandomGirl()
+                .enqueue(object : Callback<GankResponse>{
+                    override fun onResponse(call: Call<GankResponse>?, response: Response<GankResponse>?) {
+                        freshRotateAnimation(false)
+                        if(response!!.isSuccessful){
+                            Glide.with(this@MainActivity)
+                                    .load(response.body()!!.results!![0].url)
+                                    .into(headImage)
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<GankResponse>?, t: Throwable?) {
+                        freshRotateAnimation(false)
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                })
+    }
+
+    private fun freshRotateAnimation(boolean: Boolean){
+        if(boolean){
+            val rotateAnimation = RotateAnimation(0f, 360f, RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f)
+            rotateAnimation.duration = 500
+            rotateAnimation.repeatMode = Animation.RESTART
+            rotateAnimation.repeatCount = Animation.INFINITE
+            headFresh!!.startAnimation(rotateAnimation)
+        }else{
+            headFresh!!.clearAnimation()
         }
     }
 

@@ -23,13 +23,15 @@
         <activity
             android:name=".ui.WebPageActivity"
             android:label="@string/title_activity_web"
-            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme" />
 
         <service android:name=".service.GirlsCookService" />
 
-
+        <activity
+            android:name=".ui.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

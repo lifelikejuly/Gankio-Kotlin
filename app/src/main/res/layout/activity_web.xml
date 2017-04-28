@@ -21,7 +21,7 @@
             android:id="@+id/progressbar_webview"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
+            android:layout_height="3dp"
             android:layout_gravity="center"
             android:paddingTop="0dp"
             android:visibility="visible"/>

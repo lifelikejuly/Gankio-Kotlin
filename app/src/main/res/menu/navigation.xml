@@ -14,7 +14,7 @@
             android:title="每日"
             />
         <item
-            android:id="@+id/navigation_meizi"
+            android:id="@+id/navigation_girls"
             android:icon="@drawable/ic_ablum"
             android:title="妹子"
             />

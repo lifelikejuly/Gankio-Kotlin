@@ -17,4 +17,7 @@ interface GankApi{
 
     @GET("day/history")
     fun getGankHistory(): Observable<GankHistoryResponse>
+
+    @GET("random/data/福利/1")
+    fun getRandomGirl(): Call<GankResponse>
 }
