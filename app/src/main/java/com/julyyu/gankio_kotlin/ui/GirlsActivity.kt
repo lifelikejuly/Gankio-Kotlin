@@ -42,7 +42,9 @@ class GirlsActivity : AppCompatActivity() {
 
             override fun instantiateItem(container: ViewGroup?, position: Int): Any {
                 val lookGirl = ImageView(this@GirlsActivity)
+                val layout = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
                 lookGirl.adjustViewBounds = true
+                lookGirl.layoutParams = layout
                 Glide.with(this@GirlsActivity)
                         .load(train!![position].girlHome)
                         .fitCenter()
