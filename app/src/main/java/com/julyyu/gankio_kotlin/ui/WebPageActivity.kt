@@ -28,8 +28,9 @@ class WebPageActivity : AppCompatActivity() {
 
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            this.finish()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
         }
         val progressbar = findViewById(R.id.progressbar_webview) as ProgressBar
         val webView = findViewById(R.id.web_view) as WebView

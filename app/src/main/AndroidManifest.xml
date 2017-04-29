@@ -21,6 +21,7 @@ package="com.julyyu.gankio_kotlin">
 
     <activity android:name=".ui.GirlsActivity"
         android:label="@string/title_activity_girls"
+        android:theme="@style/GirlsTheme"
         android:screenOrientation="portrait"/>
 </application>
 </manifest>

@@ -110,8 +110,14 @@ class MainActivity : AppCompatActivity() {
                         .commit()
             } else {
                 when (tag) {
-                    tagGirl -> showFragment = GirlsFragment()
-                    tagDaily -> showFragment = GankFragment()
+                    tagGirl -> {
+                        showFragment = GirlsFragment()
+                        supportActionBar!!.setTitle("Girl")
+                    }
+                    tagDaily -> {
+                        showFragment = GankFragment()
+                        supportActionBar!!.setTitle("Daily")
+                    }
 //                    tagCollection -> showFragment = CollectionsFragment()
                 }
                 fragmentManager!!.beginTransaction()
@@ -129,8 +135,14 @@ class MainActivity : AppCompatActivity() {
                         .commit()
             } else {
                 when (tag) {
-                    tagGirl -> showFragment = GirlsFragment()
-                    tagDaily -> showFragment = GankFragment()
+                    tagGirl -> {
+                        showFragment = GirlsFragment()
+                        supportActionBar!!.setTitle("Girl")
+                    }
+                    tagDaily -> {
+                        showFragment = GankFragment()
+                        supportActionBar!!.setTitle("Daily")
+                    }
 //                    tagAblum -> showFragment = AblumFragment()
 //                    tagCollection -> showFragment = CollectionsFragment()
                 }

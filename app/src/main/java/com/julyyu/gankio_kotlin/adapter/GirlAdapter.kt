@@ -32,6 +32,12 @@ class GirlAdapter(girls: ArrayList<Girl>) : BaseAdapter<Girl, GirlAdapter.GirlVi
         }
     }
 
+    override fun add(list: ArrayList<Girl>){
+        val position = datas!!.size
+        datas!!.addAll(list)
+        notifyItemInserted(position)
+    }
+
 
     inner class GirlViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

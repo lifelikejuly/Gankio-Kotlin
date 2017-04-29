@@ -30,12 +30,12 @@ abstract class BaseAdapter<T,VH : RecyclerView.ViewHolder> : RecyclerView.Adapte
     }
 
 
-    fun set(list: ArrayList<T>){
+    open fun set(list: ArrayList<T>){
         this.datas = list
         notifyDataSetChanged()
     }
 
-    fun add(list: ArrayList<T>){
+    open fun add(list: ArrayList<T>){
         datas!!.addAll(list)
         notifyDataSetChanged()
     }
