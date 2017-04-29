@@ -1,30 +1,43 @@
 package com.julyyu.gankio_kotlin.ui
 
+import android.app.WallpaperManager
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import butterknife.bindView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.model.Girl
+import retrofit2.http.Url
+import rx.Observable
+import rx.Scheduler
+import rx.schedulers.Schedulers
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.OutputStream
+import java.net.URI
+import java.net.URL
 
-class GirlsActivity : AppCompatActivity() {
+class GirlsActivity : AppCompatActivity(){
 
     internal val viewPager : ViewPager by bindView(R.id.viewpager)
 
     var girlsAdapter : PagerAdapter ? = null
-//    var lookGirls : Array<ImageView> ?= null
-    var train : ArrayList<Girl> ? = null
+    var lookGirls : Array<ImageView?> ?= null
+    var train : ArrayList<Girl> ?= null
     var flag : Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +55,7 @@ class GirlsActivity : AppCompatActivity() {
 
         train = intent.getParcelableArrayListExtra<Girl>("girls")
         var position = intent.getIntExtra("position",0)
-        var lookGirls = arrayOfNulls<ImageView>(train!!.size)
+        lookGirls = arrayOfNulls<ImageView>(train!!.size)
         girlsAdapter = object : PagerAdapter(){
 
             override fun instantiateItem(container: ViewGroup?, position: Int): Any {
@@ -119,6 +132,100 @@ class GirlsActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+    }
+
+    private fun loveGirl() : Boolean{
+        var boolContact : Boolean = true
+        var filePath : String = ""
+        val file = File(Environment.getExternalStorageDirectory(),"Girls")
+        if(!file.exists()){
+            try {
+                file.mkdirs()
+                filePath = file.absolutePath
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }else{
+            filePath = file.absolutePath
+        }
+        var input : InputStream ?= null
+        var output : OutputStream ?= null
+        var girl : File ?= null
+        var sweetGril = train!![viewPager!!.currentItem]
+        var girlName = sweetGril.girlHome.toLowerCase().split("/".toRegex()).dropLastWhile ( {it.isEmpty()}).toTypedArray()
+        try {
+            var girlPhone = URL(sweetGril.girlHome)
+            var con = girlPhone.openConnection()
+            con.connectTimeout = 5 * 1000
+            input = con.getInputStream()
+            var bytes = ByteArray(1024)
+            girl = File(filePath,girlName[girlName.size - 1])
+            output = FileOutputStream(girl)
+            var length : Int = 0
+            do {
+                length = input!!.read(bytes)
+                if(length == -1){
+                    continue
+                }
+                output.write(bytes,0,length)
+            }while (length != -1)
+        }catch (e : Exception){
+            boolContact = false
+            e.printStackTrace()
+        }finally {
+            try {
+                if(input != null) input.close()
+                if(output != null) output.close()
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+            val uri = Uri.fromFile(file)
+            val scannerIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri)
+            sendBroadcast(scannerIntent)
+        }
+        return boolContact
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_girl,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when(item!!.itemId){
+            R.id.action_save -> {
+                Observable.just("")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .map {
+                            it -> loveGirl()
+                        }
+                        .subscribe {
+                            if(it){
+                                Snackbar.make(viewPager,"妹子送到相册了",Snackbar.LENGTH_SHORT).show()
+                            }else{
+                                Snackbar.make(viewPager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+//                Thread(Runnable { loveGirl() }).start()
+
+            }
+            R.id.action_wallpaper -> {
+                val wallpaper = (lookGirls!![viewPager.currentItem]!!.drawable as GlideBitmapDrawable).bitmap
+                try {
+                    WallpaperManager.getInstance(this).setBitmap(wallpaper)
+                    Snackbar.make(viewPager,"壁纸设置成功",Snackbar.LENGTH_SHORT).show()
+                }catch (e : Exception){
+                    e.printStackTrace()
+                    Snackbar.make(viewPager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
+                }
+
+//                WallpaperManager.getInstance(this).getCropAndSetWallpaperIntent()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

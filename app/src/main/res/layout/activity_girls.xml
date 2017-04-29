@@ -18,7 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:theme="@style/ToolbarTheme" />
+            android:title=""
+            app:popupTheme="@style/GirlsTheme"
+            app:showAsAction="always"
+            app:theme="@style/GirlsBarTheme" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -36,6 +39,7 @@
         android:background="@color/colorPrimaryDark"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:theme="@style/AppTheme"
         android:src="@drawable/ic_home" />
 
 </android.support.design.widget.CoordinatorLayout>
