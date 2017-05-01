@@ -22,5 +22,6 @@ allprojects {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        maven { url "http://maven.bughd.com/public" }
     }
 }

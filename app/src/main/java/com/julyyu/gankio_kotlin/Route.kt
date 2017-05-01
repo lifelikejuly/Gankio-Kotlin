@@ -3,6 +3,7 @@ package com.julyyu.gankio_kotlin
 import android.content.Context
 import android.content.Intent
 import com.julyyu.gankio_kotlin.model.Girl
+import com.julyyu.gankio_kotlin.ui.AboutActivity
 import com.julyyu.gankio_kotlin.ui.GirlsActivity
 
 /**
@@ -14,6 +15,11 @@ class Route{
         val intent = Intent(context,GirlsActivity::class.java)
         intent.putExtra("position",position)
         intent.putParcelableArrayListExtra("girls",girls)
+        context.startActivity(intent)
+    }
+
+    fun about(context : Context){
+        val intent = Intent(context,AboutActivity::class.java)
         context.startActivity(intent)
     }
 }

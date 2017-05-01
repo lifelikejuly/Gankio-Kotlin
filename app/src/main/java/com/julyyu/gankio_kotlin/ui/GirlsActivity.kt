@@ -208,7 +208,6 @@ class GirlsActivity : AppCompatActivity(){
                                 Snackbar.make(viewPager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
                             }
                         }
-//                Thread(Runnable { loveGirl() }).start()
 
             }
             R.id.action_wallpaper -> {
@@ -220,7 +219,6 @@ class GirlsActivity : AppCompatActivity(){
                     e.printStackTrace()
                     Snackbar.make(viewPager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
                 }
-
 //                WallpaperManager.getInstance(this).getCropAndSetWallpaperIntent()
             }
         }

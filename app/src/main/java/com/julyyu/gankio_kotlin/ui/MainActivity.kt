@@ -21,9 +21,11 @@ import android.widget.ImageView
 import butterknife.bindView
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
+import com.julyyu.gankio_kotlin.Route
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankApi
 import com.julyyu.gankio_kotlin.http.GankResponse
+import com.julyyu.gankio_kotlin.util.UpdateUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,6 +93,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_girls -> {
                     item.isChecked = true
                     showFragment(tagGirl)
+                }
+                R.id.navigation_about -> {
+                    Route().about(this@MainActivity)
                 }
 //                R.id.navigation_setting -> IntentUtil.goSettingActivity(this@MainActivity)
 //                R.id.navigation_about -> IntentUtil.goAboutActivity(this@MainActivity)
@@ -198,6 +203,11 @@ class MainActivity : AppCompatActivity() {
 
         private val tagGirl = "girl"
         private val tagDaily = "daily"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        UpdateUtil().checkUpdate(this@MainActivity)
     }
 
 }
