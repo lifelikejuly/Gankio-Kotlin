@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import butterknife.bindView
 import com.julyyu.gankio_kotlin.R
+import com.julyyu.gankio_kotlin.util.UpdateUtil
 
 class AboutActivity : AppCompatActivity() {
 
@@ -21,7 +23,6 @@ class AboutActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_close)
-
     }
 
     fun onclick(view: View) {
@@ -34,7 +35,18 @@ class AboutActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.btn_update -> {
+                UpdateUtil().checkUpdate(this@AboutActivity)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
