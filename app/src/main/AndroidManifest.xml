@@ -40,7 +40,7 @@
         <activity android:name=".ui.AboutActivity"
             android:screenOrientation="portrait"
             />
-        <meta-data android:value="12ab522e2544f33913322d7ce68f85ca" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="c89f6727783ab5b6e84672019908e882" android:name="BUG_HD_SDK_GENERAL_KEY" />
     </application>
 
 </manifest>
