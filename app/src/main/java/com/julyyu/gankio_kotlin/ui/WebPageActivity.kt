@@ -15,6 +15,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
 import android.widget.ProgressBar
+import android.widget.TextView
 
 
 class WebPageActivity : AppCompatActivity() {
@@ -60,7 +61,7 @@ class WebPageActivity : AppCompatActivity() {
         val des = intent.getStringExtra("des")
         webView.loadUrl(url)
         title = des
-        swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+        swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 webView.loadUrl(url)
             }

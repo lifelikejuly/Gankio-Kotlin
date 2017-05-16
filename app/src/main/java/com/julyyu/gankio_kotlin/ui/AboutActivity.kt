@@ -8,14 +8,17 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import butterknife.bindView
 import com.julyyu.gankio_kotlin.R
+import com.julyyu.gankio_kotlin.util.PackgeUtil
 import com.julyyu.gankio_kotlin.util.UpdateUtil
 
 class AboutActivity : AppCompatActivity() {
 
     internal val appBarLayout: AppBarLayout by bindView(R.id.appbarlayout)
     internal val toolbar: Toolbar by bindView(R.id.toolbar)
+    internal val versionName : TextView by bindView(R.id.tv_app_version)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class AboutActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_close)
+        versionName.setText(PackgeUtil.getAppVersionName(this))
     }
 
     fun onclick(view: View) {
@@ -35,15 +39,15 @@ class AboutActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.btn_update -> {
-                UpdateUtil().checkUpdate(this@AboutActivity)
+                UpdateUtil().getcheckUpdate(this@AboutActivity)
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
-            R.id.home -> {
-                onBackPressed()
+            android.R.id.home -> {
+                finish()
                 return true
             }
         }

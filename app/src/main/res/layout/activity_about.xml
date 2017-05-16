@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="Gank"
+                android:text="Version"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 />

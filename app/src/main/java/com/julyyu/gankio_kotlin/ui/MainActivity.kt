@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         takeSingleLady()
+        UpdateUtil().checkUpdate(this@MainActivity)
     }
 
     private inner class NavigationItemSelected : NavigationView.OnNavigationItemSelectedListener {
@@ -176,7 +177,6 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<GankResponse>?, t: Throwable?) {
                         freshRotateAnimation(false)
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
 
                 })
@@ -207,7 +207,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        UpdateUtil().checkUpdate(this@MainActivity)
     }
 
 }
