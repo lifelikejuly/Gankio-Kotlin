@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -34,7 +36,7 @@ import retrofit2.Response
  * Created by JulyYu on 2017/2/3.
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
 
     internal val toolbar: Toolbar by bindView(R.id.toolbar)
     internal val navigationView: NavigationView by bindView(R.id.design_navigation_view)
@@ -75,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         headFresh = headView.findViewById(R.id.iv_fresh) as ImageButton
         headFresh!!.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-//                freshRotateAnimation(true)
                 takeSingleLady()
             }
         })
@@ -90,10 +91,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_daily -> {
                     item.isChecked = true
                     showFragment(tagDaily)
+                    drawerLayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_girls -> {
                     item.isChecked = true
                     showFragment(tagGirl)
+                    drawerLayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_about -> {
                     Route().about(this@MainActivity)
@@ -101,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 //                R.id.navigation_setting -> IntentUtil.goSettingActivity(this@MainActivity)
 //                R.id.navigation_about -> IntentUtil.goAboutActivity(this@MainActivity)
             }
-            drawerLayout!!.closeDrawer(GravityCompat.START)
+
             return true
         }
     }
@@ -209,4 +212,18 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var menuInflater : MenuInflater = menuInflater
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.action_calendar -> {
+
+            }
+        }
+        return true
+    }
 }
