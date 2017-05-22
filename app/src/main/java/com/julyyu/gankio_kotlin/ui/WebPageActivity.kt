@@ -20,6 +20,7 @@ import android.widget.TextView
 
 class WebPageActivity : AppCompatActivity() {
 
+    internal val webView : WebView by bindView(R.id.web_view)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,6 @@ class WebPageActivity : AppCompatActivity() {
 //                    .setAction("Action", null).show()
         }
         val progressbar = findViewById(R.id.progressbar_webview) as ProgressBar
-        val webView = findViewById(R.id.web_view) as WebView
         val swipeRefresh = findViewById(R.id.swipelayout) as SwipeRefreshLayout
         webView.settings.javaScriptEnabled = true
         webView.setWebViewClient(object : WebViewClient() {
@@ -66,6 +66,14 @@ class WebPageActivity : AppCompatActivity() {
                 webView.loadUrl(url)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if(webView.canGoBack()){
+            webView.goBack()
+        }else{
+            super.onBackPressed()
+        }
     }
 
 }

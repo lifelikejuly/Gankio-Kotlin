@@ -101,7 +101,9 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
                 R.id.navigation_about -> {
                     Route().about(this@MainActivity)
                 }
-//                R.id.navigation_setting -> IntentUtil.goSettingActivity(this@MainActivity)
+                R.id.navigation_setting -> {
+                    Route().setting(this@MainActivity)
+                }
 //                R.id.navigation_about -> IntentUtil.goAboutActivity(this@MainActivity)
             }
 

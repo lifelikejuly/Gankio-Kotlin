@@ -5,6 +5,7 @@ import android.content.Intent
 import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.ui.AboutActivity
 import com.julyyu.gankio_kotlin.ui.GirlsActivity
+import com.julyyu.gankio_kotlin.ui.SettingActivity
 
 /**
  * Created by julyyu on 2017/4/28.
@@ -20,6 +21,11 @@ class Route{
 
     fun about(context : Context){
         val intent = Intent(context,AboutActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun setting(context: Context){
+        val intent = Intent(context,SettingActivity::class.java)
         context.startActivity(intent)
     }
 }

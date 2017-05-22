@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.julyyu.gankio_kotlin">
+          package="com.julyyu.gankio_kotlin">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -19,28 +19,36 @@
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.WebPageActivity"
             android:label="@string/title_activity_web"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
 
-        <service android:name=".service.GirlsCookService" />
+        <service android:name=".service.GirlsCookService"/>
 
         <activity
             android:name=".ui.GirlsActivity"
             android:label="@string/title_activity_girls"
             android:screenOrientation="portrait"
-            android:theme="@style/GirlsTheme" />
-        <activity android:name=".ui.AboutActivity"
-            android:screenOrientation="portrait"
+            android:theme="@style/GirlsTheme"/>
+        <activity android:name=".ui.SettingActivity"
+                  android:screenOrientation="portrait"
             />
-        <meta-data android:value="c89f6727783ab5b6e84672019908e882" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="BUG_HD_SDK_GENERAL_KEY"
+            android:value="c89f6727783ab5b6e84672019908e882"/>
+
+
     </application>
 
 </manifest>
