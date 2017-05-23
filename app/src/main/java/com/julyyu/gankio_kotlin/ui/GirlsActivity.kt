@@ -33,7 +33,7 @@ import java.net.URL
 
 class GirlsActivity : AppCompatActivity(){
 
-    internal val viewPager : ViewPager by bindView(R.id.viewpager)
+    val viewPager : ViewPager by bindView(R.id.viewpager)
 
     var girlsAdapter : PagerAdapter ? = null
     var lookGirls : Array<ImageView?> ?= null

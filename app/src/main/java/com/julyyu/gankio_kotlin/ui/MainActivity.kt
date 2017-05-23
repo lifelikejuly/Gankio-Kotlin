@@ -38,15 +38,17 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
 
-    internal val toolbar: Toolbar by bindView(R.id.toolbar)
-    internal val navigationView: NavigationView by bindView(R.id.design_navigation_view)
-    internal val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
-    internal var actionBarDrawerToggle: ActionBarDrawerToggle? = null
-    internal var headImage: ImageView? = null
-    internal var headFresh: ImageButton? = null
+    val toolbar: Toolbar by bindView(R.id.toolbar)
+    val navigationView: NavigationView by bindView(R.id.design_navigation_view)
+    val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
 
-    internal var fragmentManager: FragmentManager? = null
-    internal var fragment: Fragment? = null
+    var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    var headImage: ImageView? = null
+    var headFresh: ImageButton? = null
+
+    var fragmentManager: FragmentManager? = null
+    var fragment: Fragment? = null
+    var menu : Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,11 +93,13 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
                 R.id.navigation_daily -> {
                     item.isChecked = true
                     showFragment(tagDaily)
+                    checkOptionMenu(true)
                     drawerLayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_girls -> {
                     item.isChecked = true
                     showFragment(tagGirl)
+                    checkOptionMenu(false)
                     drawerLayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_about -> {
@@ -220,6 +224,11 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.action_calendar -> {
@@ -227,5 +236,21 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
             }
         }
         return true
+    }
+
+    private fun checkOptionMenu(boolean: Boolean) {
+        if (null != menu) {
+            if (boolean) {
+                for (i in 0..menu!!.size() - 1) {
+                    menu!!.getItem(i).setVisible(true)
+                    menu!!.getItem(i).setEnabled(true)
+                }
+            } else {
+                for (i in 0..menu!!.size() - 1) {
+                    menu!!.getItem(i).setVisible(false)
+                    menu!!.getItem(i).setEnabled(false)
+                }
+            }
+        }
     }
 }

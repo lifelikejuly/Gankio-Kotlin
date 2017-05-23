@@ -37,9 +37,9 @@
             android:label="@string/title_activity_girls"
             android:screenOrientation="portrait"
             android:theme="@style/GirlsTheme"/>
-        <activity android:name=".ui.SettingActivity"
-                  android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.SettingActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait"/>
@@ -48,7 +48,8 @@
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="c89f6727783ab5b6e84672019908e882"/>
 
-
+        <activity android:name=".ui.CalendarActivity">
+        </activity>
     </application>
 
 </manifest>

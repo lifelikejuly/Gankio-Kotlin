@@ -16,9 +16,9 @@ import com.julyyu.gankio_kotlin.util.UpdateUtil
 
 class AboutActivity : AppCompatActivity() {
 
-    internal val appBarLayout: AppBarLayout by bindView(R.id.appbarlayout)
-    internal val toolbar: Toolbar by bindView(R.id.toolbar)
-    internal val versionName : TextView by bindView(R.id.tv_app_version)
+    val appBarLayout: AppBarLayout by bindView(R.id.appbarlayout)
+    val toolbar: Toolbar by bindView(R.id.toolbar)
+    val versionName : TextView by bindView(R.id.tv_app_version)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

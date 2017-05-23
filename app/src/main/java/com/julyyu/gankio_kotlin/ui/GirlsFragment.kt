@@ -39,8 +39,8 @@ import kotlin.collections.ArrayList
 class GirlsFragment : Fragment(){
 
     internal var view: View? = null
-    internal val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
-    internal val recyclerView: RecyclerView by bindView(R.id.recycler)
+    val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
+    val recyclerView: RecyclerView by bindView(R.id.recycler)
     var subscription: Subscription? = null
     var giradapter: GirlAdapter?= null
     var currentPage: Int = 1

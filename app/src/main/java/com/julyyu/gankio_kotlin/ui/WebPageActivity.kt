@@ -20,7 +20,7 @@ import android.widget.TextView
 
 class WebPageActivity : AppCompatActivity() {
 
-    internal val webView : WebView by bindView(R.id.web_view)
+    val webView : WebView by bindView(R.id.web_view)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

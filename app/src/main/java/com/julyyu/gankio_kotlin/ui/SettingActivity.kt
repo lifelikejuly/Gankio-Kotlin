@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import butterknife.bindView
 
@@ -13,8 +14,8 @@ import java.io.File
 
 class SettingActivity : AppCompatActivity() {
 
-    internal val toolbar: Toolbar by bindView(R.id.toolbar)
-    internal val tvCache : TextView by bindView(R.id.tv_cache)
+    val toolbar: Toolbar by bindView(R.id.toolbar)
+    val tvCache : TextView by bindView(R.id.tv_cache)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,5 +36,9 @@ class SettingActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun clearCache(view : View){
+        DataClaenManager().cleanExternalCache(this@SettingActivity)
     }
 }
