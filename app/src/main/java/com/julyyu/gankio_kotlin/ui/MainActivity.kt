@@ -18,6 +18,7 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 
 
 import butterknife.bindView
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar!!.setNavigationIcon(R.drawable.ic_dehaze)
+        toolbar.setOnMenuItemClickListener(this@MainActivity)
+        toolbar.title = "text"
         actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
             override fun onDrawerOpened(drawerView: View?) {
                 super.onDrawerOpened(drawerView)
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
                     }
                     tagDaily -> {
                         showFragment = GankFragment()
-                        supportActionBar!!.setTitle("Daily")
+//                        supportActionBar!!.setTitle("Daily")
                     }
 //                    tagCollection -> showFragment = CollectionsFragment()
                 }
@@ -156,7 +159,7 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
                     }
                     tagDaily -> {
                         showFragment = GankFragment()
-                        supportActionBar!!.setTitle("Daily")
+//                        supportActionBar!!.setTitle("Daily")
                     }
 //                    tagAblum -> showFragment = AblumFragment()
 //                    tagCollection -> showFragment = CollectionsFragment()
@@ -231,8 +234,10 @@ class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
-            R.id.action_calendar -> {
-
+            R.id.action_calendar -> run {
+//                Toast.makeText(this@MainActivity,"hello",Toast.LENGTH_SHORT).show()
+                Route().Calendar(this@MainActivity)
+//                CalendarPopWindow(this@MainActivity).showAsDropDown(toolbar)
             }
         }
         return true

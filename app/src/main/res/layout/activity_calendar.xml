@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.julyyu.gankio_kotlin.ui.CalendarActivity">
+    tools:context="com.julyyu.gankio_kotlin.ui.calendar.CalendarActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,12 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </android.support.design.widget.AppBarLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical"
         >
+        <include android:id="@+id/view_week" layout="@layout/view_week_bar"/>
+        <com.julyyu.gankio_kotlin.widget.VerticalViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
 
-
-    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

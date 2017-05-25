@@ -31,8 +31,6 @@ class WebPageActivity : AppCompatActivity() {
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
             this.finish()
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
         }
         val progressbar = findViewById(R.id.progressbar_webview) as ProgressBar
         val swipeRefresh = findViewById(R.id.swipelayout) as SwipeRefreshLayout
@@ -48,7 +46,6 @@ class WebPageActivity : AppCompatActivity() {
                 if (newProgress >= 100) {
                     progressbar.setVisibility(View.GONE)
                     swipeRefresh.isRefreshing = false
-//                    url = webView.url
                 } else {
                     swipeRefresh.isRefreshing = true
                     progressbar.setProgress(newProgress)
@@ -60,7 +57,7 @@ class WebPageActivity : AppCompatActivity() {
         val url = intent.getStringExtra("url")
         val des = intent.getStringExtra("des")
         webView.loadUrl(url)
-        title = des
+        supportActionBar!!.title = des
         swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 webView.loadUrl(url)

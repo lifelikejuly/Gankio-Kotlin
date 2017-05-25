@@ -24,7 +24,6 @@ class SettingActivity : AppCompatActivity() {
         supportActionBar!!.setHomeButtonEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_close)
         toolbar.setTitle("设置")
-
         tvCache.text = DataClaenManager().getCacheSize(externalCacheDir)
     }
 
