@@ -28,6 +28,7 @@ import com.julyyu.gankio_kotlin.Route
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankApi
 import com.julyyu.gankio_kotlin.http.GankResponse
+import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.util.UpdateUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +38,7 @@ import retrofit2.Response
  * Created by JulyYu on 2017/2/3.
  */
 
-class MainActivity : AppCompatActivity(),Toolbar.OnMenuItemClickListener {
+class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
     val navigationView: NavigationView by bindView(R.id.design_navigation_view)

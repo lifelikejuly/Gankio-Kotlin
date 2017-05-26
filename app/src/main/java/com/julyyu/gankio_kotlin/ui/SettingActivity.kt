@@ -2,6 +2,7 @@ package com.julyyu.gankio_kotlin.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
@@ -15,7 +16,7 @@ import java.io.File
 class SettingActivity : AppCompatActivity() {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
-    val tvCache : TextView by bindView(R.id.tv_cache)
+    val tvCache: TextView by bindView(R.id.tv_cache)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId){
+        when (item!!.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
@@ -37,7 +38,15 @@ class SettingActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun clearCache(view : View){
+    fun clearCache(view: View) {
         DataClaenManager().cleanExternalCache(this@SettingActivity)
+    }
+
+    fun setTheme(view : View){
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        recreate()
     }
 }

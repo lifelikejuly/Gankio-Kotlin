@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:theme="@style/ToolbarTheme"
             app:showAsAction="always"
             />
     </android.support.design.widget.AppBarLayout>
