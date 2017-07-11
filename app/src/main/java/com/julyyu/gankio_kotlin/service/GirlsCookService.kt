@@ -25,7 +25,7 @@ class GirlsCookService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val girls = intent!!.getParcelableArrayListExtra<Girl>("Girls")
+        val girls = intent?.getParcelableArrayListExtra<Girl>("Girls")
         Observable.just<ArrayList<Girl>>(girls)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -45,11 +45,11 @@ class GirlsCookService : Service() {
                         }
 
                     }
-                    RxBus.post(GirlGoEvent(girls,""))
+                    RxBus.post(GirlGoEvent(girls, ""))
 //                    FastBus().getInstance().post(GirlGoEvent(girls,""))
                     stopSelf()
                 }
-        return super.onStartCommand(intent, flags, startId)
+        return super.onStartCommand(intent, Service.START_REDELIVER_INTENT, startId)
     }
 
 }

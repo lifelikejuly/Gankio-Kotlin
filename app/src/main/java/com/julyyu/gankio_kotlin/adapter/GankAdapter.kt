@@ -33,12 +33,12 @@ class GankAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank,GankAdapter.GankView
             2 -> {
                 holder.itemView.tv_title.text = data.desc
                 holder.itemView.tv_via.text = data.who + " & " + data.type
-                holder.itemView.tv_time.text = timeFormat.format(data.publishedAt!!.time)
+//                holder.itemView.tv_time.text = timeFormat.format(data.publishedAt!!.time)
             }
             3 -> {
                 holder.itemView.tv_title2.text = data.desc
                 holder.itemView.tv_via2.text = data.who + " & " + data.type
-                holder.itemView.tv_time2.text = timeFormat.format(data.publishedAt!!.time)
+//                holder.itemView.tv_time2.text = timeFormat.format(data.publishedAt!!.time)
                 Glide.with(holder.itemView.context)
                         .load(data.images?.get(0))
                         .into(holder.itemView.iv_img)

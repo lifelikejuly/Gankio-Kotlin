@@ -67,10 +67,11 @@ class GirlsFragment : Fragment(){
                         lastVisiblePosition = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
                     } else if (recyclerView.layoutManager is StaggeredGridLayoutManager) {
                         val staggeredGridLayoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
-                        val lastVisible = staggeredGridLayoutManager.findLastVisibleItemPositions(null)
+                        val lastVisible = staggeredGridLayoutManager.findLastVisibleItemPositions(IntArray(staggeredGridLayoutManager.spanCount))
                         lastVisiblePosition = lastVisible[lastVisible.size - 1]
                     }
                     if (lastVisiblePosition + 2 >= recyclerView.adapter!!.itemCount - 1) {
+                        swipeFreshLayout.isRefreshing = true
                         loadMore()
                     } else {
                         isLoadingMore = false
@@ -84,6 +85,15 @@ class GirlsFragment : Fragment(){
         })
         swipeFreshLayout.isRefreshing = true
         loadMore()
+        swipeFreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+            override fun onRefresh() {
+                if(giradapter != null){
+                    giradapter!!.datas = null
+                }
+                currentPage = 1
+                loadMore()
+            }
+        })
     }
 
     override fun onResume() {
@@ -100,7 +110,6 @@ class GirlsFragment : Fragment(){
                 .getGankIoData("福利",10,currentPage)
                 .enqueue(object : Callback<GankResponse> {
                     override fun onResponse(call: Call<GankResponse>, response: Response<GankResponse>?) {
-                        swipeFreshLayout.isRefreshing = false
                         isLoadingMore = false
                         if (response != null && response.isSuccessful()) {
                             currentPage++
@@ -131,5 +140,6 @@ class GirlsFragment : Fragment(){
         }else{
             giradapter!!.add(girls)
         }
+        swipeFreshLayout.isRefreshing = false
     }
 }

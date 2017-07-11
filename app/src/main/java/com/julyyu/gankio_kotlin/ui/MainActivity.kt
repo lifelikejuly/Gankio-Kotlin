@@ -41,7 +41,7 @@ import retrofit2.Response
 class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
-    val navigationView: NavigationView by bindView(R.id.design_navigation_view)
+    val navigationView: NavigationView by bindView(R.id.navigation_view)
     val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
 
     var actionBarDrawerToggle: ActionBarDrawerToggle? = null

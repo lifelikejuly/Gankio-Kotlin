@@ -33,6 +33,9 @@ class GirlAdapter(girls: ArrayList<Girl>) : BaseAdapter<Girl, GirlAdapter.GirlVi
     }
 
     override fun add(list: ArrayList<Girl>){
+        if(datas == null){
+            datas = ArrayList()
+        }
         val position = datas!!.size
         datas!!.addAll(list)
         notifyItemInserted(position)
