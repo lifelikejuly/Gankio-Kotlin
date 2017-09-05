@@ -16,4 +16,7 @@
 
     <string name="open_source">RxJava: https://github.com/ReactiveX/RxJava \nRetrofit: https://github.com/square/retrofit \nOkHttp: https://github.com/square/okhttp \nFastJson: https://github.com/alibaba/fastjson \nKotterknife: https://github.com/JakeWharton/kotterknife \nGlide: https://github.com/bumptech/glide  \n感谢【GankIo】提供的数据支持 </string>
     <string name="version_content">版本号:   %1$s \n\n更新日志: \n%2$s</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>

@@ -31,7 +31,12 @@
             android:theme="@style/AppTheme"/>
 
         <service android:name=".service.GirlsCookService"/>
-
+        <service android:name=".service.GirlsKissService">
+            <intent-filter>
+                <action android:name="android.appwidget.action.TAKE_GIRL"></action>
+                <action android:name="android.appwidget.action.CALL_GIRL"></action>
+            </intent-filter>
+        </service>
         <activity
             android:name=".ui.GirlsActivity"
             android:label="@string/title_activity_girls"
@@ -43,12 +48,31 @@
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calendar.CalendarActivity"
+        <activity
+            android:name=".ui.calendar.CalendarActivity"
             android:screenOrientation="portrait"/>
+
+        <!--<activity android:name=".desktop.GirlsAppWidgetConfigureActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="c89f6727783ab5b6e84672019908e882"/>
+
+        <receiver android:name=".desktop.GirlsAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="takeGirl"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/girls_app_widget_info"/>
+        </receiver>
+
 
     </application>
 
