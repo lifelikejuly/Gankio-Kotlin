@@ -49,8 +49,6 @@ class GirlsActivity : AppCompatActivity(){
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
             this.finish()
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
         }
 
         train = intent.getParcelableArrayListExtra<Girl>("girls")
@@ -69,7 +67,6 @@ class GirlsActivity : AppCompatActivity(){
                         .into(lookGirl)
                 container!!.addView(lookGirl)
                 lookGirls!![position] = lookGirl
-//                lookGirls[position] = lookGirl
                 return lookGirl
             }
 
@@ -133,7 +130,7 @@ class GirlsActivity : AppCompatActivity(){
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
     }
-
+    // 保存照片到本地
     private fun loveGirl() : Boolean{
         var boolContact : Boolean = true
         var filePath : String = ""
@@ -179,7 +176,7 @@ class GirlsActivity : AppCompatActivity(){
             }catch (e : Exception){
                 e.printStackTrace()
             }
-            val uri = Uri.fromFile(file)
+            val uri = Uri.fromFile(girl)
             val scannerIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri)
             sendBroadcast(scannerIntent)
         }
@@ -212,14 +209,25 @@ class GirlsActivity : AppCompatActivity(){
             }
             R.id.action_wallpaper -> {
                 val wallpaper = (lookGirls!![viewPager.currentItem]!!.drawable as GlideBitmapDrawable).bitmap
-                try {
-                    WallpaperManager.getInstance(this).setBitmap(wallpaper)
-                    Snackbar.make(viewPager,"壁纸设置成功",Snackbar.LENGTH_SHORT).show()
-                }catch (e : Exception){
-                    e.printStackTrace()
-                    Snackbar.make(viewPager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
-                }
-//                WallpaperManager.getInstance(this).getCropAndSetWallpaperIntent()
+                var success = false
+                Observable.just(wallpaper)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .map {
+                            try {
+                                WallpaperManager.getInstance(this).setBitmap(wallpaper)
+                                success = true
+                            }catch (e : Exception){
+                                e.printStackTrace()
+                                success = false
+                            }
+                        }.subscribe {
+                            if(success){
+                                Snackbar.make(viewPager,"壁纸设置成功",Snackbar.LENGTH_SHORT).show()
+                            }else{
+                                Snackbar.make(viewPager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
             }
         }
 

@@ -6,9 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.julyyu.gankio_kotlin.ui.SettingActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -16,55 +18,110 @@
             app:theme="@style/ToolbarTheme"
             />
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
             >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="15dp"
-                android:onClick="clearCache"
-                >
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="清理缓存"
-                    android:textSize="16sp"
-                    />
-                <TextView
-                    android:id="@+id/tv_cache"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black"
-                    android:text="ss"
-                    android:drawableRight="@drawable/ic_chevron_right"
-                    />
-            </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#999999"/>
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="夜间模式"
-                android:textSize="16sp"
-                android:onClick="setTheme"
+                android:text="每日内容"
+                android:textSize="15sp"/>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android"
                 />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_ios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="iOS"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_meizi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MeiZi"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_front"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="前端"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="休息视频"
+                />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拓展资源"
+                />
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="15dp"-->
+            <!--android:onClick="clearCache"-->
+            <!--&gt;-->
+            <!--<TextView-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="清理缓存"-->
+            <!--android:textSize="16sp"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_cache"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:text="ss"-->
+            <!--android:drawableRight="@drawable/ic_chevron_right"-->
+            <!--/>-->
+            <!--</LinearLayout>-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="#999999"/>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="15dp"-->
+            <!--android:text="夜间模式"-->
+            <!--android:textSize="16sp"-->
+            <!--android:onClick="setTheme"-->
+            <!--/>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

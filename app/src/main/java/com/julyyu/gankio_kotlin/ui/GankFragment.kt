@@ -19,6 +19,7 @@ import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.model.Gank
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GankEvent
+import com.julyyu.gankio_kotlin.util.SpUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -34,6 +35,13 @@ class GankFragment: Fragment(){
     internal val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
     internal val recyclerView: RecyclerView by bindView(R.id.recycler)
     var subscription: Subscription? = null
+
+    var androids : Boolean by SpUtil("android",true)
+    var ios     : Boolean by SpUtil("ios",true)
+    var front   : Boolean by SpUtil("front",false)
+    var meizi   : Boolean by SpUtil("meizi",true)
+    var video   : Boolean by SpUtil("video",false)
+    var other   : Boolean by SpUtil("other",false)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
@@ -62,16 +70,22 @@ class GankFragment: Fragment(){
                             swipeFreshLayout.isRefreshing = false
                             if(!it.error){
                                 val ganks = ArrayList<Gank>()
-                                if(it.results!!.Android != null){
+                                if(it.results!!.Android != null && androids){
                                     ganks.addAll(it.results!!.Android!!)
                                 }
-                                if(it.results!!.iOS != null){
+                                if(it.results!!.iOS != null && ios){
                                     ganks.addAll(it.results!!.iOS!!)
                                 }
-                                if(it.results!!.拓展资源 != null){
+                                if(it.results!!.前端 != null && front){
+                                    ganks.addAll(it.results!!.前端!!)
+                                }
+                                if(it.results!!.休息视频 != null && video){
+                                    ganks.addAll(it.results!!.休息视频!!)
+                                }
+                                if(it.results!!.拓展资源 != null && other){
                                     ganks.addAll(it.results!!.拓展资源!!)
                                 }
-                                if(it.results!!.福利 != null){
+                                if(it.results!!.福利 != null && meizi){
                                     ganks.addAll(it.results!!.福利!!)
                                 }
                                 recyclerView.adapter = GankAdapter(ganks)
@@ -105,16 +119,22 @@ class GankFragment: Fragment(){
                                             swipeFreshLayout.isRefreshing = false
                                             if(!it.error){
                                                 val ganks = ArrayList<Gank>()
-                                                if(it.results!!.Android != null){
+                                                if(it.results!!.Android != null && androids){
                                                     ganks.addAll(it.results!!.Android!!)
                                                 }
-                                                if(it.results!!.iOS != null){
+                                                if(it.results!!.iOS != null && ios){
                                                     ganks.addAll(it.results!!.iOS!!)
                                                 }
-                                                if(it.results!!.拓展资源 != null){
+                                                if(it.results!!.前端 != null && front){
+                                                    ganks.addAll(it.results!!.前端!!)
+                                                }
+                                                if(it.results!!.休息视频 != null && video){
+                                                    ganks.addAll(it.results!!.休息视频!!)
+                                                }
+                                                if(it.results!!.拓展资源 != null && other){
                                                     ganks.addAll(it.results!!.拓展资源!!)
                                                 }
-                                                if(it.results!!.福利 != null){
+                                                if(it.results!!.福利 != null && meizi){
                                                     ganks.addAll(it.results!!.福利!!)
                                                 }
                                                 recyclerView.adapter = GankAdapter(ganks)

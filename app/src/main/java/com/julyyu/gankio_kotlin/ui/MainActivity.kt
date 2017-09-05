@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -28,6 +29,7 @@ import com.julyyu.gankio_kotlin.Route
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankApi
 import com.julyyu.gankio_kotlin.http.GankResponse
+import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.util.UpdateUtil
 import retrofit2.Call
@@ -36,9 +38,11 @@ import retrofit2.Response
 
 /**
  * Created by JulyYu on 2017/2/3.
+ * 主页
  */
 
-class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
+class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClickListener{
+
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
     val navigationView: NavigationView by bindView(R.id.navigation_view)
@@ -51,6 +55,8 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
     var fragmentManager: FragmentManager? = null
     var fragment: Fragment? = null
     var menu : Menu? = null
+
+    var singleLady : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +92,7 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
                 takeSingleLady()
             }
         })
+        headImage!!.setOnClickListener(this@MainActivity)
         takeSingleLady()
         UpdateUtil().checkUpdate(this@MainActivity)
     }
@@ -109,9 +116,9 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
                 R.id.navigation_about -> {
                     Route().about(this@MainActivity)
                 }
-//                R.id.navigation_setting -> {
-//                    Route().setting(this@MainActivity)
-//                }
+                R.id.navigation_setting -> {
+                    Route().setting(this@MainActivity)
+                }
 //                R.id.navigation_about -> IntentUtil.goAboutActivity(this@MainActivity)
             }
 
@@ -181,10 +188,10 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
                     override fun onResponse(call: Call<GankResponse>?, response: Response<GankResponse>?) {
                         freshRotateAnimation(false)
                         if(response!!.isSuccessful){
+                            singleLady = response.body()!!.results!![0].url
                             Glide.with(this@MainActivity)
-                                    .load(response.body()!!.results!![0].url)
+                                    .load(singleLady)
                                     .into(headImage)
-
                         }
                     }
 
@@ -236,13 +243,23 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.action_calendar -> run {
-//                Toast.makeText(this@MainActivity,"hello",Toast.LENGTH_SHORT).show()
                 Route().Calendar(this@MainActivity)
-//                CalendarPopWindow(this@MainActivity).showAsDropDown(toolbar)
             }
         }
         return true
     }
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.iv_img ->{
+                if(!TextUtils.isEmpty(singleLady)){
+                    var girl: ArrayList<Girl> ?= ArrayList()
+                    girl!!.add(Girl(singleLady!!,234,345))
+                    Route().visitGirls(this@MainActivity,girl!!,0)
+                }
+            }
+        }
+    }
+
 
     private fun checkOptionMenu(boolean: Boolean) {
         if (null != menu) {

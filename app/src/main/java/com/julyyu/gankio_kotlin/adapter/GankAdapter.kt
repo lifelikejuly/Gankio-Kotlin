@@ -11,12 +11,16 @@ import kotlinx.android.synthetic.main.item_meizi.view.*
 import java.util.*
 import android.support.v4.content.ContextCompat.startActivity
 import android.content.Intent
+import com.julyyu.gankio_kotlin.Route
+import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.ui.WebPageActivity
 import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
 
 /**
  * Created by JulyYu on 2017/4/26.
+ *
  */
 class GankAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank,GankAdapter.GankViewHolder>(gank){
 
@@ -33,12 +37,10 @@ class GankAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank,GankAdapter.GankView
             2 -> {
                 holder.itemView.tv_title.text = data.desc
                 holder.itemView.tv_via.text = data.who + " & " + data.type
-//                holder.itemView.tv_time.text = timeFormat.format(data.publishedAt!!.time)
             }
             3 -> {
                 holder.itemView.tv_title2.text = data.desc
                 holder.itemView.tv_via2.text = data.who + " & " + data.type
-//                holder.itemView.tv_time2.text = timeFormat.format(data.publishedAt!!.time)
                 Glide.with(holder.itemView.context)
                         .load(data.images?.get(0))
                         .into(holder.itemView.iv_img)
@@ -46,10 +48,16 @@ class GankAdapter(gank: ArrayList<Gank>) : BaseAdapter<Gank,GankAdapter.GankView
         }
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(context, WebPageActivity::class.java)
-            intent.putExtra("url", data.url)
-            intent.putExtra("des", data.desc)
-            context.startActivity(intent)
+            if(type == 1){
+                var girl: ArrayList<Girl> ?= ArrayList()
+                girl!!.add(Girl(data.url!!,234,345))
+                Route().visitGirls(holder.itemView.context,girl!!,0)
+            }else{
+                val intent = Intent(context, WebPageActivity::class.java)
+                intent.putExtra("url", data.url)
+                intent.putExtra("des", data.desc)
+                context.startActivity(intent)
+            }
         }
     }
 
