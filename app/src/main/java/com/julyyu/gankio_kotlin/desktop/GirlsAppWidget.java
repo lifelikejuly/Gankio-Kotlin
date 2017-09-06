@@ -13,9 +13,11 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.julyyu.gankio_kotlin.R;
@@ -49,9 +51,9 @@ public class GirlsAppWidget extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
-        for (int appWidgetId : appWidgetIds) {
-            GirlsAppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
-        }
+//        for (int appWidgetId : appWidgetIds) {
+//            GirlsAppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+//        }
     }
 
     @Override
@@ -73,24 +75,52 @@ public class GirlsAppWidget extends AppWidgetProvider {
             Glide.with(context)
                     .load(girl)
                     .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            if(resource != null){
-                                views.setImageViewBitmap(R.id.iv_girl,resource);
-
-                                Intent intent = new Intent(context, GirlsKissService.class);
-                                intent.putExtra("girl",girlPhone);
-                                intent.setAction(GirlsKissService.Companion.getTAKE_GIRL());
-                                intent.setPackage(context.getPackageName());
-                                PendingIntent pendingIntent = PendingIntent.getService(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                                views.setOnClickPendingIntent(R.id.iv_save,pendingIntent);
-
-                                girlWidgetManager.updateAppWidget(girlWidgetId,views);
+                            if(resource != null && resource.getByteCount() < 12441600){
+                                Log.i("byte",resource.getByteCount() + "");
+                                updateWidgetView(context,resource);
+//                                views.setImageViewBitmap(R.id.iv_girl,resource);
+//
+//                                Intent intent = new Intent(context, GirlsKissService.class);
+//                                intent.putExtra("girl",girlPhone);
+//                                intent.setAction(GirlsKissService.Companion.getTAKE_GIRL());
+//                                intent.setPackage(context.getPackageName());
+//                                PendingIntent pendingIntent = PendingIntent.getService(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+//                                views.setOnClickPendingIntent(R.id.iv_save,pendingIntent);
+//                                girlWidgetManager.updateAppWidget(girlWidgetId,views);
+//                                if(resource != null){
+//                                    resource.recycle();
+//                                }
+//                                updateWidgetView(context,girlWidgetManager,girlWidgetId);
                             }
                         }
                     });
         }
+    }
+    private static void updateWidgetView(Context context,Bitmap resource){
+        views = new RemoteViews(context.getPackageName(), R.layout.girls_app_widget);
+        views.setImageViewBitmap(R.id.iv_girl,resource);
+//        Drawable drawable = ContextCompat.getDrawable(context,R.drawable.ic_save);
+//        DrawableCompat.setTintList(drawable,ColorStateList.valueOf(Color.BLACK));
+//        views.setImageViewBitmap(R.id.iv_save, );
+        Intent intent = new Intent(context, GirlsKissService.class);
+        intent.putExtra("girl",girlPhone);
+        intent.setAction(GirlsKissService.Companion.getTAKE_GIRL());
+        intent.setPackage(context.getPackageName());
+        PendingIntent pendingIntent = PendingIntent.getService(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.iv_save,pendingIntent);
+
+        Intent intent1 = new Intent(context, GirlsKissService.class);
+        intent1.setAction(GirlsKissService.Companion.getCALL_GIRL());
+        intent1.setPackage(context.getPackageName());
+        PendingIntent pendingIntent1 = PendingIntent.getService(context,0,intent1,0);
+        views.setOnClickPendingIntent(R.id.iv_fresh,pendingIntent1);
+//        context.startService(intent1);
+        // Instruct the widget manager to update the widget
+        girlWidgetManager.updateAppWidget(girlWidgetId, views);
     }
     private static void updateWidgetView(Context context, AppWidgetManager appWidgetManager,
                                          int appWidgetId){
