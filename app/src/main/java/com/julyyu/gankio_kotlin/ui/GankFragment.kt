@@ -11,7 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.bindView
+import kotterknife.bindView
 import com.julyyu.gankio_kotlin.AppConst
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.GankAdapter

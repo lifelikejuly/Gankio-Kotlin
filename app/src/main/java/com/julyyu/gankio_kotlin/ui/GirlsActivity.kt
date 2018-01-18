@@ -16,7 +16,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.ImageView
-import butterknife.bindView
+import kotterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 

@@ -5,7 +5,7 @@ import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import butterknife.bindView
+import kotterknife.bindView
 import com.julyyu.gankio_kotlin.AppConst
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.MonthAdapter

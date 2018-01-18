@@ -35,54 +35,142 @@
             android:paddingRight="15dp"
             android:paddingTop="10dp"
             >
-
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="每日内容"
                 android:textSize="15sp"/>
-
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_android"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Android"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Android"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_ios"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="iOS"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="iOS"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_ios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_meizi"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MeiZi"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="MeiZi"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_meizi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_front"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="前端"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="前端"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_front_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_video"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="休息视频"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="休息视频"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/cb_other"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="拓展资源"
-                />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="拓展资源"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_res"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
 
             <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->

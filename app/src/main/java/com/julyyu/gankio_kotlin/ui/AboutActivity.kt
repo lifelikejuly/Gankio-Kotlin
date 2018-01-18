@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import butterknife.bindView
+import kotterknife.bindView
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.util.PackgeUtil
 import com.julyyu.gankio_kotlin.util.UpdateUtil

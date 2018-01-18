@@ -8,22 +8,13 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
 import android.webkit.WebView
-import butterknife.bindView
+import kotterknife.bindView
 
 import com.julyyu.gankio_kotlin.R
 import android.webkit.WebResourceRequest
 import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
 import android.widget.ProgressBar
-import com.julyyu.gankio_kotlin.widget.vassnoic.SonicSessionClientImpl
-import com.tencent.sonic.sdk.SonicSessionConfig
-import com.tencent.sonic.sdk.SonicEngine
-import com.tencent.sonic.sdk.SonicConfig
-import com.tencent.sonic.sdk.SonicSession
-import com.julyyu.gankio_kotlin.widget.vassnoic.SonicJavaScriptInterface
-import com.julyyu.gankio_kotlin.widget.vassnoic.SonicRuntimeImpl
-import android.webkit.WebResourceResponse
-import android.annotation.TargetApi
 
 
 

@@ -22,7 +22,7 @@ import android.widget.ImageView
 import android.widget.Toast
 
 
-import butterknife.bindView
+import kotterknife.bindView
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.Route

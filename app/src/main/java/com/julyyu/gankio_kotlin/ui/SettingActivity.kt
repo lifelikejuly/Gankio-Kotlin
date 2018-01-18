@@ -4,12 +4,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.AppCompatCheckBox
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
-import butterknife.bindView
+import kotterknife.bindView
 
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.util.DataClaenManager
@@ -22,13 +23,13 @@ import java.io.File
 class SettingActivity : AppCompatActivity() {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
-    val cbAndroid: AppCompatCheckBox by bindView(R.id.cb_android)
-    val cbiOS: AppCompatCheckBox by bindView(R.id.cb_ios)
-    val cbMeizi: AppCompatCheckBox by bindView(R.id.cb_meizi)
-    val cbFront: AppCompatCheckBox by bindView(R.id.cb_front)
-    val cbVideo: AppCompatCheckBox by bindView(R.id.cb_video)
-    val cbOther: AppCompatCheckBox by bindView(R.id.cb_other)
-    val cbArray = arrayOfNulls<AppCompatCheckBox>(6)
+    val cbAndroid: SwitchCompat by bindView(R.id.sw_android)
+    val cbiOS: SwitchCompat by bindView(R.id.sw_ios)
+    val cbMeizi: SwitchCompat by bindView(R.id.sw_meizi)
+    val cbFront: SwitchCompat by bindView(R.id.sw_front_end)
+    val cbVideo: SwitchCompat by bindView(R.id.sw_video)
+    val cbOther: SwitchCompat by bindView(R.id.sw_res)
+    val cbArray = arrayOfNulls<SwitchCompat>(6)
 
     var androids : Boolean by SpUtil("android",true)
     var ios     : Boolean by SpUtil("ios",true)
