@@ -1,7 +1,10 @@
 package com.julyyu.gankio_kotlin
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.ui.AboutActivity
 import com.julyyu.gankio_kotlin.ui.calendar.CalendarActivity
@@ -35,5 +38,11 @@ class Route{
     fun Calendar(context: Context){
         val intent = Intent(context, CalendarActivity::class.java)
         context.startActivity(intent)
+    }
+
+    fun appDefualtSetting(activity: Activity, packagename: String, result: Int) {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        intent.data = Uri.parse("package:" + packagename)
+        activity.startActivityForResult(intent, result)
     }
 }

@@ -71,21 +71,27 @@ class GankFragment: Fragment(){
                             if(!it.error){
                                 val ganks = ArrayList<Gank>()
                                 if(it.results!!.Android != null && androids){
+                                    ganks.add(Gank("Android","classfy"))
                                     ganks.addAll(it.results!!.Android!!)
                                 }
                                 if(it.results!!.iOS != null && ios){
+                                    ganks.add(Gank("iOS","classfy"))
                                     ganks.addAll(it.results!!.iOS!!)
                                 }
                                 if(it.results!!.前端 != null && front){
+                                    ganks.add(Gank("前端","classfy"))
                                     ganks.addAll(it.results!!.前端!!)
                                 }
                                 if(it.results!!.休息视频 != null && video){
+                                    ganks.add(Gank("休息视频","classfy"))
                                     ganks.addAll(it.results!!.休息视频!!)
                                 }
                                 if(it.results!!.拓展资源 != null && other){
+                                    ganks.add(Gank("拓展资源","classfy"))
                                     ganks.addAll(it.results!!.拓展资源!!)
                                 }
                                 if(it.results!!.福利 != null && meizi){
+                                    ganks.add(Gank("Girl","classfy"))
                                     ganks.addAll(it.results!!.福利!!)
                                 }
                                 recyclerView.adapter = GankAdapter(ganks)
@@ -120,21 +126,27 @@ class GankFragment: Fragment(){
                                             if(!it.error){
                                                 val ganks = ArrayList<Gank>()
                                                 if(it.results!!.Android != null && androids){
+                                                    ganks.add(Gank("Android","classfy"))
                                                     ganks.addAll(it.results!!.Android!!)
                                                 }
                                                 if(it.results!!.iOS != null && ios){
+                                                    ganks.add(Gank("iOS","classfy"))
                                                     ganks.addAll(it.results!!.iOS!!)
                                                 }
                                                 if(it.results!!.前端 != null && front){
+                                                    ganks.add(Gank("前端","classfy"))
                                                     ganks.addAll(it.results!!.前端!!)
                                                 }
                                                 if(it.results!!.休息视频 != null && video){
+                                                    ganks.add(Gank("休息视频","classfy"))
                                                     ganks.addAll(it.results!!.休息视频!!)
                                                 }
                                                 if(it.results!!.拓展资源 != null && other){
+                                                    ganks.add(Gank("拓展资源","classfy"))
                                                     ganks.addAll(it.results!!.拓展资源!!)
                                                 }
                                                 if(it.results!!.福利 != null && meizi){
+                                                    ganks.add(Gank("Girl","classfy"))
                                                     ganks.addAll(it.results!!.福利!!)
                                                 }
                                                 recyclerView.adapter = GankAdapter(ganks)

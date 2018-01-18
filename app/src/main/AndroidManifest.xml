@@ -66,6 +66,8 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="takeGirl"/>
+                <action android:name="kissGirl"/>
+                <action android:name="refusePermission"/>
             </intent-filter>
 
             <meta-data

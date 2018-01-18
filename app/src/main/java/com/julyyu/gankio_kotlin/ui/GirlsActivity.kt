@@ -1,5 +1,6 @@
 package com.julyyu.gankio_kotlin.ui
 
+import android.Manifest
 import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -20,6 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
 
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.model.Girl
+import com.julyyu.gankio_kotlin.util.DialogUtil
+import com.julyyu.gankio_kotlin.util.PermissionUtil
 import retrofit2.http.Url
 import rx.Observable
 import rx.Scheduler
@@ -39,6 +43,7 @@ class GirlsActivity : AppCompatActivity(){
     var lookGirls : Array<ImageView?> ?= null
     var train : ArrayList<Girl> ?= null
     var flag : Boolean = true
+    var alertDialog : AlertDialog ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_girls)
@@ -192,20 +197,11 @@ class GirlsActivity : AppCompatActivity(){
 
         when(item!!.itemId){
             R.id.action_save -> {
-                Observable.just("")
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.io())
-                        .map {
-                            it -> loveGirl()
-                        }
-                        .subscribe {
-                            if(it){
-                                Snackbar.make(viewPager,"妹子送到相册了",Snackbar.LENGTH_SHORT).show()
-                            }else{
-                                Snackbar.make(viewPager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
-                            }
-                        }
-
+                if (!PermissionUtil().checkingPermissionRegister(applicationContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                    PermissionUtil().requestPermission(this, 2, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }else{
+                    kissGirl()
+                }
             }
             R.id.action_wallpaper -> {
                 val wallpaper = (lookGirls!![viewPager.currentItem]!!.drawable as GlideBitmapDrawable).bitmap
@@ -232,6 +228,30 @@ class GirlsActivity : AppCompatActivity(){
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    fun kissGirl(){
+        Observable.just("")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map {
+                    it -> loveGirl()
+                }
+                .subscribe {
+                    if(it){
+                        Snackbar.make(viewPager,"妹子送到相册了",Snackbar.LENGTH_SHORT).show()
+                    }else{
+                        Snackbar.make(viewPager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (PermissionUtil().hasRejectPermission(grantResults)) run {
+            alertDialog = DialogUtil().getPermissionDialog(this, packageName)
+            alertDialog!!.show()
+        }else{
+            kissGirl()
+        }
     }
 
 }

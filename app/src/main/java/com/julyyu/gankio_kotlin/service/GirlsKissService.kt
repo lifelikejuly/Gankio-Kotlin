@@ -1,21 +1,16 @@
 package com.julyyu.gankio_kotlin.service
 
+import android.Manifest
 import android.app.Service
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.os.IBinder
-import android.support.design.widget.Snackbar
 import android.text.TextUtils
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
-import com.julyyu.gankio_kotlin.App
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.http.GankResponse
-import com.julyyu.gankio_kotlin.model.Girl
-import com.julyyu.gankio_kotlin.rx.RxBus
-import com.julyyu.gankio_kotlin.rx.event.GirlGoEvent
+import com.julyyu.gankio_kotlin.util.PermissionUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +21,6 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.net.URL
-import java.util.concurrent.ExecutionException
 
 /**
  * Created by julyyu on 2017/9/5.
@@ -73,6 +67,21 @@ class GirlsKissService : Service() {
     }
     fun takeGirlHand(intent: Intent){
         val girlPhone = intent?.getStringExtra("girl")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (!PermissionUtil().checkingPermissionRegister(applicationContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                val girl = Intent("refusePermission")
+                sendBroadcast(girl)
+            }else{
+                kissGirl(girlPhone)
+            }
+        }else{
+            kissGirl(girlPhone)
+        }
+
+
+    }
+
+    fun kissGirl(girlPhone : String){
         Observable.just<String>(girlPhone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -113,11 +122,14 @@ class GirlsKissService : Service() {
                                 }
                                 output.write(bytes,0,length)
                             }while (length != -1)
-                            Runnable {
-                                Toast.makeText(applicationContext,"妹子送到相册了", Toast.LENGTH_SHORT).show()
-                            }
+                            val girl = Intent("kissGirl")
+                            girl.putExtra("msg","妹子送到相册了")
+                            sendBroadcast(girl)
                         }catch (e : Exception){
                             e.printStackTrace()
+                            val girl = Intent("kissGirl")
+                            girl.putExtra("msg","妹子没送到相册了")
+                            sendBroadcast(girl)
                         }finally {
                             try {
                                 if(input != null) input.close()

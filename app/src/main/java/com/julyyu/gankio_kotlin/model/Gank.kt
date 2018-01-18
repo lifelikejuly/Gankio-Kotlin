@@ -17,7 +17,10 @@ class Gank{
      * used : true
      * who : Jin
      */
-
+    constructor(desc: String?, type: String?) {
+        this.desc = desc
+        this.type = type
+    }
     var _id: String? = null
     var createdAt: String? = null
     var desc: String? = null

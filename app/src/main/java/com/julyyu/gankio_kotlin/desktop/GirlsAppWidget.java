@@ -15,6 +15,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -82,22 +83,13 @@ public class GirlsAppWidget extends AppWidgetProvider {
                             if(resource != null && resource.getByteCount() < 12441600){
                                 Log.i("byte",resource.getByteCount() + "");
                                 updateWidgetView(context,resource);
-//                                views.setImageViewBitmap(R.id.iv_girl,resource);
-//
-//                                Intent intent = new Intent(context, GirlsKissService.class);
-//                                intent.putExtra("girl",girlPhone);
-//                                intent.setAction(GirlsKissService.Companion.getTAKE_GIRL());
-//                                intent.setPackage(context.getPackageName());
-//                                PendingIntent pendingIntent = PendingIntent.getService(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-//                                views.setOnClickPendingIntent(R.id.iv_save,pendingIntent);
-//                                girlWidgetManager.updateAppWidget(girlWidgetId,views);
-//                                if(resource != null){
-//                                    resource.recycle();
-//                                }
-//                                updateWidgetView(context,girlWidgetManager,girlWidgetId);
                             }
                         }
                     });
+        }else if(TextUtils.equals(intent.getAction(),"kissGirl")){
+            Toast.makeText(context,intent.getStringExtra("msg"), Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.equals(intent.getAction(),"refusePermission")){
+            Toast.makeText(context,"应用存储权限未打开,妹子送不到相册", Toast.LENGTH_SHORT).show();
         }
     }
     private static void updateWidgetView(Context context,Bitmap resource){
@@ -144,7 +136,7 @@ public class GirlsAppWidget extends AppWidgetProvider {
         intent1.setPackage(context.getPackageName());
         PendingIntent pendingIntent1 = PendingIntent.getService(context,0,intent1,0);
         views.setOnClickPendingIntent(R.id.iv_fresh,pendingIntent1);
-//        context.startService(intent1);
+        context.startService(intent1);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
