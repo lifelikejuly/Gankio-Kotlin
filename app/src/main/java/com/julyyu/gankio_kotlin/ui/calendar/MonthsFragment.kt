@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.MonthPagerAdapter
-import com.julyyu.gankio_kotlin.widget.VerticalViewPager
 import org.joda.time.DateTime
 
 /**
@@ -17,7 +16,7 @@ import org.joda.time.DateTime
 class MonthsFragment : Fragment(), ViewPager.OnPageChangeListener {
 
     internal var view: android.view.View = null!!
-    var verticalViewPager: VerticalViewPager
+    var verticalViewPager: ViewPager
     var monthPagerAdapter: MonthPagerAdapter
 
     private var mNowYear: Int = 0
@@ -26,7 +25,7 @@ class MonthsFragment : Fragment(), ViewPager.OnPageChangeListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater!!.inflate(R.layout.fragment_months, container, false)
-        verticalViewPager = view.findViewById(R.id.vertical_viewpager) as VerticalViewPager
+        verticalViewPager = view.findViewById(R.id.vertical_viewpager) as ViewPager
         return view
     }
 
@@ -36,7 +35,7 @@ class MonthsFragment : Fragment(), ViewPager.OnPageChangeListener {
         verticalViewPager.setAdapter(monthPagerAdapter)
         val dt = DateTime()
         verticalViewPager.setCurrentItem(monthPagerAdapter.getCount() / 2 + dt.getMonthOfYear() - 1)
-        verticalViewPager.setOnPageChangeListener(this@MonthsFragment)
+        verticalViewPager.addOnPageChangeListener(this@MonthsFragment)
         val dateTime = DateTime()
         mNowYear = dateTime.getYear()
         mNowMonth = dateTime.getMonthOfYear()
