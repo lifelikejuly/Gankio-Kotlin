@@ -1,6 +1,7 @@
 package com.julyyu.gankio_kotlin.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -44,14 +45,15 @@ class GirlsActivity : AppCompatActivity(){
     var train : ArrayList<Girl> ?= null
     var flag : Boolean = true
     var alertDialog : AlertDialog ?= null
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_girls)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setShowHideAnimationEnabled(true)
+        supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
         hideOrShowToolBar()
-        val fab = findViewById(R.id.fab) as FloatingActionButton
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { view ->
             this.finish()
         }
@@ -61,7 +63,7 @@ class GirlsActivity : AppCompatActivity(){
         lookGirls = arrayOfNulls<ImageView>(train!!.size)
         girlsAdapter = object : PagerAdapter(){
 
-            override fun instantiateItem(container: ViewGroup?, position: Int): Any {
+            override fun instantiateItem(container: ViewGroup, position: Int): Any {
                 val lookGirl = ImageView(this@GirlsActivity)
                 val layout = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
                 lookGirl.adjustViewBounds = true
@@ -75,7 +77,7 @@ class GirlsActivity : AppCompatActivity(){
                 return lookGirl
             }
 
-            override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
+            override fun isViewFromObject(view: View, `object`: Any): Boolean {
                 return view === `object`
             }
 
@@ -83,7 +85,7 @@ class GirlsActivity : AppCompatActivity(){
                 return train!!.size
             }
 
-            override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
+            override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
                 container!!.removeView(lookGirls!![position])
             }
 

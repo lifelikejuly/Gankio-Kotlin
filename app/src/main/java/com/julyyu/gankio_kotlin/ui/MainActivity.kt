@@ -71,11 +71,11 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClic
         toolbar.setOnMenuItemClickListener(this@MainActivity)
         toolbar.title = "text"
         actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
-            override fun onDrawerOpened(drawerView: View?) {
+            override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
             }
 
-            override fun onDrawerClosed(drawerView: View?) {
+            override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
             }
         }
@@ -85,8 +85,8 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClic
         showFragment(tagDaily)
         navigationView!!.setNavigationItemSelectedListener(NavigationItemSelected())
         val headView = navigationView.inflateHeaderView(R.layout.drawer_header)
-        headImage = headView.findViewById(R.id.iv_img) as ImageView
-        headFresh = headView.findViewById(R.id.iv_fresh) as ImageButton
+        headImage = headView.findViewById<ImageView>(R.id.iv_img)
+        headFresh = headView.findViewById<ImageButton>(R.id.iv_fresh)
         headFresh!!.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 takeSingleLady()

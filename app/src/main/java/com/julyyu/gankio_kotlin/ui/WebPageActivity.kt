@@ -52,14 +52,14 @@ class WebPageActivity : AppCompatActivity() {
 
         // step 3: BindWebView for sessionClient and bindClient for SonicSession
         setContentView(R.layout.activity_web)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val fab = findViewById(R.id.fab) as FloatingActionButton
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { view ->
             this.finish()
         }
-        val progressbar = findViewById(R.id.progressbar_webview) as ProgressBar
-        val swipeRefresh = findViewById(R.id.swipelayout) as SwipeRefreshLayout
+        val progressbar = findViewById<ProgressBar>(R.id.progressbar_webview)
+        val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipelayout)
         webView.settings.javaScriptEnabled = true
         webView.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {

@@ -23,15 +23,15 @@ class MonthsFragment : Fragment(), ViewPager.OnPageChangeListener {
     private var mNowMonth: Int = 0
     private var mNowDay: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater!!.inflate(R.layout.fragment_months, container, false)
-        verticalViewPager = view.findViewById(R.id.vertical_viewpager) as ViewPager
+        verticalViewPager = view.findViewById<ViewPager>(R.id.vertical_viewpager)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        monthPagerAdapter = MonthPagerAdapter(activity.supportFragmentManager)
+        monthPagerAdapter = MonthPagerAdapter(activity!!.supportFragmentManager)
         verticalViewPager.setAdapter(monthPagerAdapter)
         val dt = DateTime()
         verticalViewPager.setCurrentItem(monthPagerAdapter.getCount() / 2 + dt.getMonthOfYear() - 1)

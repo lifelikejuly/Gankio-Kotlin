@@ -45,12 +45,12 @@ class GirlsFragment : Fragment(){
     var giradapter: GirlAdapter?= null
     var currentPage: Int = 1
     var isLoadingMore = false
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscription = RxBus.observe<GirlGoEvent>()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -131,7 +131,7 @@ class GirlsFragment : Fragment(){
         }
         val intent = Intent(activity, GirlsCookService::class.java)
         intent.putParcelableArrayListExtra("Girls", girlses as ArrayList<out Parcelable>)
-        activity.startService(intent)
+        activity!!.startService(intent)
     }
     fun takeGirls(girls : ArrayList<Girl>){
         if(recyclerView.adapter == null){

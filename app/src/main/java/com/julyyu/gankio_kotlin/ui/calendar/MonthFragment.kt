@@ -45,19 +45,18 @@ open class MonthFragment : Fragment(),MonthAdapter.MonthListener{
         }
     }
 
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_month, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val year = arguments.getInt(MonthFragment.Companion.ARG_SECTION_YEAR)
-        val month = arguments.getInt(MonthFragment.Companion.ARG_SECTION_MONTH)
+        val year = arguments!!.getInt(MonthFragment.Companion.ARG_SECTION_YEAR)
+        val month = arguments!!.getInt(MonthFragment.Companion.ARG_SECTION_MONTH)
         recycler.layoutManager = GridLayoutManager(activity, 7) as RecyclerView.LayoutManager?
         val days = ArrayList<Day>()
         var dateTime = DateTime()

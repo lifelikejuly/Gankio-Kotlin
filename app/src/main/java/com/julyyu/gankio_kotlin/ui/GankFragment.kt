@@ -43,12 +43,12 @@ class GankFragment: Fragment(){
     var video   : Boolean by SpUtil("video",false)
     var other   : Boolean by SpUtil("other",false)
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         swipeFreshLayout.isRefreshing = true
@@ -61,7 +61,7 @@ class GankFragment: Fragment(){
         subscription = RxBus.observe<GankEvent>()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    activity.toolbar.title = it.day
+                    activity!!.toolbar.title = it.day
                     ApiFactory.getGankApi()
                         .getGankDayDate(it.day?.replace("-","/")!!)
                         .subscribeOn(Schedulers.io())
@@ -116,7 +116,7 @@ class GankFragment: Fragment(){
                             if(!it.error) {
                                 AppConst.dates = LinkedList(it.results)
                                 val date: String? = it.results?.get(0)
-                                activity.toolbar.title = date
+                                activity!!.toolbar.title = date
                                 ApiFactory.getGankApi()
                                         .getGankDayDate(date?.replace("-","/")!!)
                                         .subscribeOn(Schedulers.io())
