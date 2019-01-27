@@ -23,6 +23,7 @@ import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GirlGoEvent
 import com.julyyu.gankio_kotlin.service.GirlsCookService
+import com.julyyu.gankio_kotlin.util.SpUtil
 import kotlinx.android.synthetic.main.view_recycler.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,6 +43,9 @@ class GirlsFragment : Fragment(){
     var giradapter: GirlAdapter?= null
     var currentPage: Int = 1
     var isLoadingMore = false
+
+    var girlsJson : String by SpUtil("girls","")
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
         return view

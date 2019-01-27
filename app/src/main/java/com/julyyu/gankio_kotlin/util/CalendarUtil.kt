@@ -23,9 +23,9 @@ class CalendarUtil{
         return mDays
     }
 
-    fun MonthCount(begain : String,end : String) : Int{
+    fun MonthCount(begin : String? =  "2015-01-01",end : String? = "2019-01-01") : Int{
         var timeformat = SimpleDateFormat("yyyy-MM-dd")
-        val startTime = timeformat.parse(begain)
+        val startTime = timeformat.parse(begin)
         val endTime = timeformat.parse(end)
         var dt = DateTime(startTime)
         val startyear = dt.year

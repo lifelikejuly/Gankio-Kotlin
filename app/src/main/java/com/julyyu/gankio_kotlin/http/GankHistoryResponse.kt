@@ -5,7 +5,7 @@ import java.util.*
 /**
  * Created by JulyYu on 2017/4/26.
  */
-class GankHistoryResponse{
+class  GankHistoryResponse{
 
     public var error: Boolean = false
     public var results: ArrayList<String>? = null

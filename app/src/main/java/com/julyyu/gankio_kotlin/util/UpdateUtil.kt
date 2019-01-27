@@ -3,26 +3,29 @@ package com.julyyu.gankio_kotlin.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.view.ContextThemeWrapper
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.http.ApiFactory
+import kotlinx.android.synthetic.main.view_recycler.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
  * Created by julyyu on 2017/5/1.
  */
-class UpdateUtil{
+class UpdateUtil {
 
     fun checkUpdate(context: Context) {
         ApiFactory.getFirApi()
                 .getAppVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     val versionName = PackgeUtil.getAppVersionName(context)
                     val version = PackgeUtil.getAppVersionCode(context)
                     if (!TextUtils.equals(it!!.version, version.toString() + "") || !TextUtils.equals(it!!.versionShort, versionName)) {
@@ -42,8 +45,9 @@ class UpdateUtil{
                         }
                         builder.show()
                     }
+                }, { error ->
 
-                }
+                })
     }
 
     fun getcheckUpdate(context: Context) {
@@ -52,7 +56,7 @@ class UpdateUtil{
                 .getAppVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     val versionName = PackgeUtil.getAppVersionName(context)
                     val version = PackgeUtil.getAppVersionCode(context)
                     if (!TextUtils.equals(it!!.version, version.toString() + "") || !TextUtils.equals(it!!.versionShort, versionName)) {
@@ -71,10 +75,12 @@ class UpdateUtil{
                             context.startActivity(intent)
                         }
                         builder.show()
-                    }else{
-                        Toast.makeText(context,"已经是最新版本",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "已经是最新版本", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }, { error ->
+
+                })
 
     }
 }

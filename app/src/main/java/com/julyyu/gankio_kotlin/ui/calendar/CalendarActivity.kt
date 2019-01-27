@@ -24,7 +24,7 @@ class CalendarActivity : AppCompatActivity() , ViewPager.OnPageChangeListener {
         setSupportActionBar(toolbar)
         supportActionBar!!.setHomeButtonEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_close)
-        val months = CalendarUtil().MonthCount(AppConst.dates!!.last,AppConst.dates!!.first)
+        val months = CalendarUtil().MonthCount(AppConst.dates?.last,AppConst.dates?.first)
         monthAdapter = MonthPagerAdapter(supportFragmentManager,months)
         viewpager.addOnPageChangeListener(this@CalendarActivity)
         viewpager.adapter = monthAdapter

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSON;
 import com.julyyu.gankio_kotlin.R;
+import com.julyyu.gankio_kotlin.model.GankCollection;
 
 /**
  * The configuration screen for the {@link GirlsAppWidget GirlsAppWidget} AppWidget.
@@ -23,7 +25,6 @@ public class GirlsAppWidgetConfigureActivity extends Activity {
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = GirlsAppWidgetConfigureActivity.this;
-
             // When the button is clicked, store the string locally
             String widgetText = mAppWidgetText.getText().toString();
             saveTitlePref(context, mAppWidgetId, widgetText);

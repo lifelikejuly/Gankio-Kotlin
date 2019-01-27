@@ -8,7 +8,7 @@ import rx.Observable
  */
 interface FirApi {
 
-    @GET("http://api.fir.im/apps/latest/5907df60ca87a85eb7000084?api_token=91ae1ee9710ec563ab23cfec6d51b800")
+    @GET("http://api.fir.im/apps/latest/5c4daf79959d695542f3566a?api_token=91ae1ee9710ec563ab23cfec6d51b800")
     abstract fun getAppVersion(): Observable<FirResponse>
 
 }

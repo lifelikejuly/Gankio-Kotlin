@@ -5,15 +5,19 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.fastjson.JSON
+import com.google.gson.Gson
 import com.julyyu.gankio_kotlin.AppConst
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.GankAdapter
 import com.julyyu.gankio_kotlin.http.ApiFactory
 import com.julyyu.gankio_kotlin.model.Gank
+import com.julyyu.gankio_kotlin.model.GankCollection
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GankEvent
 import com.julyyu.gankio_kotlin.util.SpUtil
@@ -22,6 +26,7 @@ import kotlinx.android.synthetic.main.view_recycler.*
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -41,8 +46,10 @@ class GankFragment: Fragment(){
     var video   : Boolean by SpUtil("video",false)
     var other   : Boolean by SpUtil("other",false)
 
+    var gankJson : String by SpUtil("ganks","")
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = LayoutInflater.from(activity).inflate(R.layout.view_recycler,null)
+        view = LayoutInflater.from(context).inflate(R.layout.view_recycler,null)
         return view
     }
 
@@ -122,6 +129,7 @@ class GankFragment: Fragment(){
                                         .subscribe {
                                             swipelayout.isRefreshing = false
                                             if(!it.error){
+                                                gankJson = JSON.toJSONString(it.results)
                                                 val ganks = ArrayList<Gank>()
                                                 if(it.results!!.Android != null && androids){
                                                     ganks.add(Gank("Android","classfy"))
@@ -150,15 +158,55 @@ class GankFragment: Fragment(){
                                                 recycler.adapter = GankAdapter(ganks)
                                             }
                                         }
+                            }else{
+                                loadLocalData()
                             }
                         },
                         {
                             error ->
+                            loadLocalData()
                             swipelayout.isRefreshing = false
-                            Snackbar.make(swipelayout,"日常加载失败",Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(swipelayout,"日常加载失败,请检查网络。",Snackbar.LENGTH_SHORT).show()
                             Log.i("ERROR",error.message)
                         }
                 )
+    }
+
+    fun loadLocalData(){
+        if(!TextUtils.isEmpty(gankJson)){
+            val ganks = ArrayList<Gank>()
+            try {
+//                var datas = Gson().fromJson(gankJson,GankCollection::class.java)
+                var datas = JSON.parseObject(gankJson,GankCollection::class.java)
+                if(datas!!.Android != null && androids){
+                    ganks.add(Gank("Android","classfy"))
+                    ganks.addAll(datas!!.Android!!)
+                }
+                if(datas!!.iOS != null && ios){
+                    ganks.add(Gank("iOS","classfy"))
+                    ganks.addAll(datas!!.iOS!!)
+                }
+                if(datas!!.前端 != null && front){
+                    ganks.add(Gank("前端","classfy"))
+                    ganks.addAll(datas!!.前端!!)
+                }
+                if(datas!!.休息视频 != null && video){
+                    ganks.add(Gank("休息视频","classfy"))
+                    ganks.addAll(datas!!.休息视频!!)
+                }
+                if(datas!!.拓展资源 != null && other){
+                    ganks.add(Gank("拓展资源","classfy"))
+                    ganks.addAll(datas!!.拓展资源!!)
+                }
+                if(datas!!.福利 != null && meizi){
+                    ganks.add(Gank("Girl","classfy"))
+                    ganks.addAll(datas!!.福利!!)
+                }
+                recycler.adapter = GankAdapter(ganks)
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
     }
 
 }
