@@ -1,6 +1,5 @@
 package com.julyyu.gankio_kotlin.ui.calendar
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity

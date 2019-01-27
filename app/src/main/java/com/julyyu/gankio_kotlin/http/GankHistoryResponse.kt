@@ -1,6 +1,6 @@
 package com.julyyu.gankio_kotlin.http
 
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by JulyYu on 2017/4/26.

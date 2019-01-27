@@ -1,14 +1,12 @@
 package com.julyyu.gankio_kotlin.ui
 
-import android.media.Image
+
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
@@ -19,19 +17,14 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Toast
-
-
-import kotterknife.bindView
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.Route
 import com.julyyu.gankio_kotlin.http.ApiFactory
-import com.julyyu.gankio_kotlin.http.GankApi
 import com.julyyu.gankio_kotlin.http.GankResponse
 import com.julyyu.gankio_kotlin.model.Girl
-import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.util.UpdateUtil
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,9 +37,9 @@ import retrofit2.Response
 class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClickListener{
 
 
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val navigationView: NavigationView by bindView(R.id.navigation_view)
-    val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
+//    val toolbar: Toolbar by bindView(R.id.toolbar)
+//    val navigationView: NavigationView by bindView(R.id.navigation_view)
+//    val drawerLayout: DrawerLayout by bindView(R.id.drawerlayout)
 
     var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     var headImage: ImageView? = null
@@ -70,7 +63,7 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClic
         toolbar!!.setNavigationIcon(R.drawable.ic_dehaze)
         toolbar.setOnMenuItemClickListener(this@MainActivity)
         toolbar.title = "text"
-        actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close) {
+        actionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerlayout, toolbar, R.string.open, R.string.close) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
             }
@@ -80,11 +73,11 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClic
             }
         }
         (actionBarDrawerToggle as ActionBarDrawerToggle).syncState()
-        drawerLayout!!.addDrawerListener(actionBarDrawerToggle!!)
+        drawerlayout!!.addDrawerListener(actionBarDrawerToggle!!)
         fragmentManager = supportFragmentManager
         showFragment(tagDaily)
-        navigationView!!.setNavigationItemSelectedListener(NavigationItemSelected())
-        val headView = navigationView.inflateHeaderView(R.layout.drawer_header)
+        navigation_view!!.setNavigationItemSelectedListener(NavigationItemSelected())
+        val headView = navigation_view.inflateHeaderView(R.layout.drawer_header)
         headImage = headView.findViewById<ImageView>(R.id.iv_img)
         headFresh = headView.findViewById<ImageButton>(R.id.iv_fresh)
         headFresh!!.setOnClickListener(object : View.OnClickListener{
@@ -105,13 +98,13 @@ class MainActivity : ThemeActivity(),Toolbar.OnMenuItemClickListener,View.OnClic
                     item.isChecked = true
                     showFragment(tagDaily)
                     checkOptionMenu(true)
-                    drawerLayout!!.closeDrawer(GravityCompat.START)
+                    drawerlayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_girls -> {
                     item.isChecked = true
                     showFragment(tagGirl)
                     checkOptionMenu(false)
-                    drawerLayout!!.closeDrawer(GravityCompat.START)
+                    drawerlayout!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.navigation_about -> {
                     Route().about(this@MainActivity)

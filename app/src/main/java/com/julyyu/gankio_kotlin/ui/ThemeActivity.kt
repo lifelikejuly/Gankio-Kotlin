@@ -1,8 +1,6 @@
 package com.julyyu.gankio_kotlin.ui
 
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
 
 /**
  * Created by JulyYu on 2017/5/26.

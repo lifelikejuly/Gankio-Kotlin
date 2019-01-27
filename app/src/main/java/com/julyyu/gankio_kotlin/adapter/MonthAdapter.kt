@@ -1,6 +1,5 @@
 package com.julyyu.gankio_kotlin.adapter
 
-import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils

@@ -7,9 +7,9 @@ import android.net.Uri
 import android.provider.Settings
 import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.ui.AboutActivity
-import com.julyyu.gankio_kotlin.ui.calendar.CalendarActivity
 import com.julyyu.gankio_kotlin.ui.GirlsActivity
 import com.julyyu.gankio_kotlin.ui.SettingActivity
+import com.julyyu.gankio_kotlin.ui.calendar.CalendarActivity
 import java.util.*
 
 /**

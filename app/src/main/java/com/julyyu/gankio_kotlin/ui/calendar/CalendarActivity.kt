@@ -1,24 +1,21 @@
 package com.julyyu.gankio_kotlin.ui.calendar
 
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import kotterknife.bindView
 import com.julyyu.gankio_kotlin.AppConst
 import com.julyyu.gankio_kotlin.R
-import com.julyyu.gankio_kotlin.adapter.MonthAdapter
 import com.julyyu.gankio_kotlin.adapter.MonthPagerAdapter
 import com.julyyu.gankio_kotlin.util.CalendarUtil
+import kotlinx.android.synthetic.main.activity_calendar.*
 
 class CalendarActivity : AppCompatActivity() , ViewPager.OnPageChangeListener {
 
 
 
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val viewPager : ViewPager by bindView(R.id.viewpager)
+//    val toolbar: Toolbar by bindView(R.id.toolbar)
+//    val viewPager : ViewPager by bindView(R.id.viewpager)
     var monthAdapter : MonthPagerAdapter ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +26,10 @@ class CalendarActivity : AppCompatActivity() , ViewPager.OnPageChangeListener {
         toolbar.setNavigationIcon(R.drawable.ic_close)
         val months = CalendarUtil().MonthCount(AppConst.dates!!.last,AppConst.dates!!.first)
         monthAdapter = MonthPagerAdapter(supportFragmentManager,months)
-        viewPager.addOnPageChangeListener(this@CalendarActivity)
-        viewPager.adapter = monthAdapter
-        viewPager.setCurrentItem(months - 1)
-        supportActionBar!!.title = monthAdapter?.getYearMonth(viewPager.currentItem)
+        viewpager.addOnPageChangeListener(this@CalendarActivity)
+        viewpager.adapter = monthAdapter
+        viewpager.setCurrentItem(months - 1)
+        supportActionBar!!.title = monthAdapter?.getYearMonth(viewpager.currentItem)
     }
 
     override fun onPageScrollStateChanged(state: Int) {

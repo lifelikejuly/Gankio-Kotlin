@@ -2,23 +2,20 @@ package com.julyyu.gankio_kotlin.ui
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.Toolbar
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
-import kotterknife.bindView
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.util.PackgeUtil
 import com.julyyu.gankio_kotlin.util.UpdateUtil
+import kotlinx.android.synthetic.main.activity_about.*
 
 class AboutActivity : AppCompatActivity() {
 
-    val appBarLayout: AppBarLayout by bindView(R.id.appbarlayout)
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val versionName : TextView by bindView(R.id.tv_app_version)
+//    val appBarLayout: AppBarLayout by bindView(R.id.appbarlayout)
+//    val toolbar: Toolbar by bindView(R.id.toolbar)
+//    val versionName : TextView by bindView(R.id.tv_app_version)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +23,7 @@ class AboutActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_close)
-        versionName.setText(PackgeUtil.getAppVersionName(this))
+        tv_app_version.text = PackgeUtil.getAppVersionName(this)
     }
 
     fun onclick(view: View) {

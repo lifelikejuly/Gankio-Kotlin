@@ -4,7 +4,6 @@ import rx.Observable
 import rx.Subscription
 import rx.subjects.PublishSubject
 import rx.subjects.SerializedSubject
-import rx.subjects.Subject
 import rx.subscriptions.CompositeSubscription
 import java.util.*
 

@@ -1,12 +1,8 @@
 package com.julyyu.gankio_kotlin.util
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.pm.Signature
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 /**
  * Created by julyyu on 2017/5/1.

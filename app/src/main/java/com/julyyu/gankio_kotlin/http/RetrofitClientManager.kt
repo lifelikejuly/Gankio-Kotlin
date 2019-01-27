@@ -1,15 +1,11 @@
 package com.julyyu.gankio_kotlin.http
 
 import com.julyyu.gankio_kotlin.AppConst
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.fastjson.FastJsonConverterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 
 /**
  * Created by JulyYu on 2017/4/24.

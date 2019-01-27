@@ -4,41 +4,35 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.ImageView
-import kotterknife.bindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable
-
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.util.DialogUtil
 import com.julyyu.gankio_kotlin.util.PermissionUtil
-import retrofit2.http.Url
+import kotlinx.android.synthetic.main.activity_girls.*
 import rx.Observable
-import rx.Scheduler
 import rx.schedulers.Schedulers
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
-import java.net.URI
 import java.net.URL
 
 class GirlsActivity : AppCompatActivity(){
 
-    val viewPager : ViewPager by bindView(R.id.viewpager)
+//    val viewPager : ViewPager by bindView(R.id.viewpager)
 
     var girlsAdapter : PagerAdapter ? = null
     var lookGirls : Array<ImageView?> ?= null
@@ -90,9 +84,9 @@ class GirlsActivity : AppCompatActivity(){
             }
 
         }
-        viewPager.adapter = girlsAdapter
-        viewPager.currentItem = position
-        viewPager.setOnTouchListener(object : View.OnTouchListener{
+        viewpager.adapter = girlsAdapter
+        viewpager.currentItem = position
+        viewpager.setOnTouchListener(object : View.OnTouchListener{
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when(event!!.action){
                     MotionEvent.ACTION_DOWN -> {
@@ -141,9 +135,12 @@ class GirlsActivity : AppCompatActivity(){
     private fun loveGirl() : Boolean{
         var boolContact : Boolean = true
         var filePath : String = ""
-        val file = File(Environment.getExternalStorageDirectory(),"Girls")
+        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),"Girls")
         if(!file.exists()){
             try {
+//                if(file.parentFile == null){
+//                    file.parentFile.mkdir()
+//                }
                 file.mkdirs()
                 filePath = file.absolutePath
             }catch (e : Exception){
@@ -155,10 +152,10 @@ class GirlsActivity : AppCompatActivity(){
         var input : InputStream ?= null
         var output : OutputStream ?= null
         var girl : File ?= null
-        var sweetGril = train!![viewPager!!.currentItem]
-        var girlName = sweetGril.girlHome.toLowerCase().split("/".toRegex()).dropLastWhile ( {it.isEmpty()}).toTypedArray()
+        var sweetGirl = train!![viewpager!!.currentItem]
+        var girlName = sweetGirl.girlHome.toLowerCase().split("/".toRegex()).dropLastWhile ( {it.isEmpty()}).toTypedArray()
         try {
-            var girlPhone = URL(sweetGril.girlHome)
+            var girlPhone = URL(sweetGirl.girlHome)
             var con = girlPhone.openConnection()
             con.connectTimeout = 5 * 1000
             input = con.getInputStream()
@@ -206,7 +203,7 @@ class GirlsActivity : AppCompatActivity(){
                 }
             }
             R.id.action_wallpaper -> {
-                val wallpaper = (lookGirls!![viewPager.currentItem]!!.drawable as GlideBitmapDrawable).bitmap
+                val wallpaper = (lookGirls!![viewpager.currentItem]!!.drawable as GlideBitmapDrawable).bitmap
                 var success = false
                 Observable.just(wallpaper)
                         .subscribeOn(Schedulers.io())
@@ -221,9 +218,9 @@ class GirlsActivity : AppCompatActivity(){
                             }
                         }.subscribe {
                             if(success){
-                                Snackbar.make(viewPager,"壁纸设置成功",Snackbar.LENGTH_SHORT).show()
+                                Snackbar.make(viewpager,"壁纸设置成功",Snackbar.LENGTH_SHORT).show()
                             }else{
-                                Snackbar.make(viewPager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
+                                Snackbar.make(viewpager,"壁纸设置失败",Snackbar.LENGTH_SHORT).show()
                             }
                         }
             }
@@ -240,9 +237,9 @@ class GirlsActivity : AppCompatActivity(){
                 }
                 .subscribe {
                     if(it){
-                        Snackbar.make(viewPager,"妹子送到相册了",Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(viewpager,"妹子送到相册了",Snackbar.LENGTH_SHORT).show()
                     }else{
-                        Snackbar.make(viewPager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(viewpager,"妹子没有送到相册",Snackbar.LENGTH_SHORT).show()
                     }
                 }
     }

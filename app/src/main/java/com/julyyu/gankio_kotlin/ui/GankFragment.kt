@@ -1,17 +1,14 @@
 package com.julyyu.gankio_kotlin.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotterknife.bindView
 import com.julyyu.gankio_kotlin.AppConst
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.GankAdapter
@@ -21,6 +18,7 @@ import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GankEvent
 import com.julyyu.gankio_kotlin.util.SpUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_recycler.*
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -32,8 +30,8 @@ import java.util.*
 class GankFragment: Fragment(){
 
     internal var view: View? = null
-    internal val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
-    internal val recyclerView: RecyclerView by bindView(R.id.recycler)
+//    internal val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
+//    internal val recyclerView: RecyclerView by bindView(R.id.recycler)
     var subscription: Subscription? = null
 
     var androids : Boolean by SpUtil("android",true)
@@ -50,10 +48,10 @@ class GankFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        swipeFreshLayout.isRefreshing = true
+        recycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        swipelayout.isRefreshing = true
         loadMore()
-        swipeFreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+        swipelayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
             override fun onRefresh() {
                 loadMore()
             }
@@ -67,7 +65,7 @@ class GankFragment: Fragment(){
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
-                            swipeFreshLayout.isRefreshing = false
+                            swipelayout.isRefreshing = false
                             if(!it.error){
                                 val ganks = ArrayList<Gank>()
                                 if(it.results!!.Android != null && androids){
@@ -94,7 +92,7 @@ class GankFragment: Fragment(){
                                     ganks.add(Gank("Girl","classfy"))
                                     ganks.addAll(it.results!!.福利!!)
                                 }
-                                recyclerView.adapter = GankAdapter(ganks)
+                                recycler.adapter = GankAdapter(ganks)
                             }
                         } }
     }
@@ -122,7 +120,7 @@ class GankFragment: Fragment(){
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe {
-                                            swipeFreshLayout.isRefreshing = false
+                                            swipelayout.isRefreshing = false
                                             if(!it.error){
                                                 val ganks = ArrayList<Gank>()
                                                 if(it.results!!.Android != null && androids){
@@ -149,15 +147,15 @@ class GankFragment: Fragment(){
                                                     ganks.add(Gank("Girl","classfy"))
                                                     ganks.addAll(it.results!!.福利!!)
                                                 }
-                                                recyclerView.adapter = GankAdapter(ganks)
+                                                recycler.adapter = GankAdapter(ganks)
                                             }
                                         }
                             }
                         },
                         {
                             error ->
-                            swipeFreshLayout.isRefreshing = false
-                            Snackbar.make(swipeFreshLayout,"日常加载失败",Snackbar.LENGTH_SHORT).show()
+                            swipelayout.isRefreshing = false
+                            Snackbar.make(swipelayout,"日常加载失败",Snackbar.LENGTH_SHORT).show()
                             Log.i("ERROR",error.message)
                         }
                 )

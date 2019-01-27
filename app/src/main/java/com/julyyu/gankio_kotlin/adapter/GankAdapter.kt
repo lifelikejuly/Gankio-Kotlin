@@ -1,23 +1,20 @@
 package com.julyyu.gankio_kotlin.adapter
 
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bumptech.glide.Glide
-import com.julyyu.gankio_kotlin.R
-import com.julyyu.gankio_kotlin.model.Gank
-import kotlinx.android.synthetic.main.item_dry.view.*
-import kotlinx.android.synthetic.main.item_dry_pic.view.*
-import kotlinx.android.synthetic.main.item_meizi.view.*
-import java.util.*
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Intent
 import com.julyyu.gankio_kotlin.App
+import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.Route
+import com.julyyu.gankio_kotlin.model.Gank
 import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.ui.WebPageActivity
 import kotlinx.android.synthetic.main.item_classfy.view.*
+import kotlinx.android.synthetic.main.item_dry.view.*
+import kotlinx.android.synthetic.main.item_dry_pic.view.*
+import kotlinx.android.synthetic.main.item_meizi.view.*
 import java.text.SimpleDateFormat
-import kotlin.collections.ArrayList
 
 
 /**

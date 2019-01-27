@@ -9,11 +9,8 @@ import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GirlGoEvent
 import rx.Observable
-import rx.functions.Action1
 import rx.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.ExecutionException
-import kotlin.collections.ArrayList
 
 /**
  * Created by JulyYu on 2017/4/25.

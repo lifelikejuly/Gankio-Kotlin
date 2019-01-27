@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import kotterknife.bindView
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.adapter.GirlAdapter
 import com.julyyu.gankio_kotlin.http.ApiFactory
@@ -24,14 +23,12 @@ import com.julyyu.gankio_kotlin.model.Girl
 import com.julyyu.gankio_kotlin.rx.RxBus
 import com.julyyu.gankio_kotlin.rx.event.GirlGoEvent
 import com.julyyu.gankio_kotlin.service.GirlsCookService
+import kotlinx.android.synthetic.main.view_recycler.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import rx.Scheduler
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action1
-import kotlin.collections.ArrayList
 
 /**
  * Created by JulyYu on 2017/4/24.
@@ -39,8 +36,8 @@ import kotlin.collections.ArrayList
 class GirlsFragment : Fragment(){
 
     internal var view: View? = null
-    val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
-    val recyclerView: RecyclerView by bindView(R.id.recycler)
+//    val swipeFreshLayout: SwipeRefreshLayout by bindView(R.id.swipelayout)
+//    val recyclerView: RecyclerView by bindView(R.id.recycler)
     var subscription: Subscription? = null
     var giradapter: GirlAdapter?= null
     var currentPage: Int = 1
@@ -55,8 +52,8 @@ class GirlsFragment : Fragment(){
         subscription = RxBus.observe<GirlGoEvent>()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { takeGirls(it.girls) }
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recycler.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && !isLoadingMore) {
@@ -71,7 +68,7 @@ class GirlsFragment : Fragment(){
                         lastVisiblePosition = lastVisible[lastVisible.size - 1]
                     }
                     if (lastVisiblePosition + 2 >= recyclerView.adapter!!.itemCount - 1) {
-                        swipeFreshLayout.isRefreshing = true
+                        swipelayout.isRefreshing = true
                         loadMore()
                     } else {
                         isLoadingMore = false
@@ -83,9 +80,9 @@ class GirlsFragment : Fragment(){
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
-        swipeFreshLayout.isRefreshing = true
+        swipelayout.isRefreshing = true
         loadMore()
-        swipeFreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+        swipelayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
             override fun onRefresh() {
                 if(giradapter != null){
                     giradapter!!.datas = null
@@ -117,9 +114,9 @@ class GirlsFragment : Fragment(){
                         }
                     }
                     override fun onFailure(call: Call<GankResponse>, t: Throwable) {
-                        swipeFreshLayout.isRefreshing = false
+                        swipelayout.isRefreshing = false
                         isLoadingMore = false
-                        Snackbar.make(swipeFreshLayout,"妹子加载失败",Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(swipelayout,"妹子加载失败",Snackbar.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -134,12 +131,12 @@ class GirlsFragment : Fragment(){
         activity!!.startService(intent)
     }
     fun takeGirls(girls : ArrayList<Girl>){
-        if(recyclerView.adapter == null){
+        if(recycler.adapter == null){
             giradapter = GirlAdapter(girls)
-            recyclerView.adapter = giradapter
+            recycler.adapter = giradapter
         }else{
             giradapter!!.add(girls)
         }
-        swipeFreshLayout.isRefreshing = false
+        swipelayout.isRefreshing = false
     }
 }

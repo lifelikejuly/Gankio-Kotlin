@@ -5,13 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -22,7 +16,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.julyyu.gankio_kotlin.R;
-import com.julyyu.gankio_kotlin.model.Girl;
 import com.julyyu.gankio_kotlin.service.GirlsKissService;
 
 /**

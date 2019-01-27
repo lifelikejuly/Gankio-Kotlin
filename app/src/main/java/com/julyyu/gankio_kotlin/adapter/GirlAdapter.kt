@@ -5,7 +5,6 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.julyyu.gankio_kotlin.R
 import com.julyyu.gankio_kotlin.Route
-import com.julyyu.gankio_kotlin.model.Gank
 import com.julyyu.gankio_kotlin.model.Girl
 import kotlinx.android.synthetic.main.item_meizi.view.*
 

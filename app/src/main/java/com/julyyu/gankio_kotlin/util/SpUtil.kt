@@ -1,7 +1,6 @@
 package com.julyyu.gankio_kotlin.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.julyyu.gankio_kotlin.App
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

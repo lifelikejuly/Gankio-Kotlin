@@ -6,22 +6,18 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.view.WindowManager
-import android.webkit.WebView
-import kotterknife.bindView
-
-import com.julyyu.gankio_kotlin.R
-import android.webkit.WebResourceRequest
-import android.webkit.WebViewClient
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ProgressBar
-
-
+import com.julyyu.gankio_kotlin.R
+import kotlinx.android.synthetic.main.content_web.*
 
 
 class WebPageActivity : AppCompatActivity() {
 
-    val webView : WebView by bindView(R.id.web_view)
+//    val webView : WebView by bindView(R.id.web_view)
 //    var sonicSession: SonicSession? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +56,8 @@ class WebPageActivity : AppCompatActivity() {
         }
         val progressbar = findViewById<ProgressBar>(R.id.progressbar_webview)
         val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipelayout)
-        webView.settings.javaScriptEnabled = true
-        webView.setWebViewClient(object : WebViewClient() {
+        web_view.settings.javaScriptEnabled = true
+        web_view.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 return true
             }
@@ -85,7 +81,7 @@ class WebPageActivity : AppCompatActivity() {
 //                return null
 //            }
         })
-        webView.setWebChromeClient(object : WebChromeClient() {
+        web_view.setWebChromeClient(object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
                 if (newProgress >= 100) {
@@ -100,7 +96,7 @@ class WebPageActivity : AppCompatActivity() {
         })
 
 
-        val webSettings = webView.settings
+        val webSettings = web_view.settings
 
         // step 4: bind javascript
         // note:if api level lower than 17(android 4.2), addJavascriptInterface has security
@@ -128,18 +124,18 @@ class WebPageActivity : AppCompatActivity() {
 //        } else { // default mode
 //            webView.loadUrl(url)
 //        }
-        webView.loadUrl(url)
+        web_view.loadUrl(url)
         supportActionBar!!.title = des
         swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
-                webView.loadUrl(url)
+                web_view.loadUrl(url)
             }
         })
     }
 
     override fun onBackPressed() {
-        if(webView.canGoBack()){
-            webView.goBack()
+        if(web_view.canGoBack()){
+            web_view.goBack()
         }else{
             super.onBackPressed()
         }

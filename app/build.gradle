@@ -6,22 +6,42 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.julyyu.gankio_kotlin"
+        applicationId "com.julyyu.gankio.kotlin"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
-        versionName "1.1709061603"
+        versionName "1.1901271651"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs{
+        Properties properties = new Properties()
+        InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+        properties.load( inputStream )
+        //读取字段
+        def key_keyAlias = properties.getProperty( 'SIGN_KEY_ALIAS' )
+        def key_keyPassword = properties.getProperty( 'SIGNKEY_PASSWORD' ) ;
+        def key_storePassword = properties.getProperty( 'SIGN_STORE_PASSWORD' ) ;
+        release{
+            storeFile file("../key.store")
+            storePassword key_storePassword
+            keyAlias key_keyAlias
+            keyPassword key_keyPassword
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
 }
 
 dependencies {
@@ -32,21 +52,25 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
     implementation 'com.android.support:appcompat-v7:27.0.1'
     implementation 'com.android.support:cardview-v7:27.0.1'
     implementation 'com.android.support:design:27.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.1.6'
+
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
+
     implementation 'com.squareup.okhttp3:okhttp:3.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
     implementation 'com.alibaba:fastjson:1.1.56.android'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+
     implementation 'com.android.support:support-v4:27.0.1'
 //    compile 'com.tencent.sonic:sdk:1.0.0'
 //    compile 'im.fir:fir-sdk:latest.integration@aar'

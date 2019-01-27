@@ -2,7 +2,6 @@ package com.julyyu.gankio_kotlin.adapter
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.util.Log
 import com.julyyu.gankio_kotlin.ui.calendar.MonthFragment
 import org.joda.time.DateTime
 

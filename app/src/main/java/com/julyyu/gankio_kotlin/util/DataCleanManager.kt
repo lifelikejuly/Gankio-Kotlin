@@ -1,8 +1,8 @@
 package com.julyyu.gankio_kotlin.util
 
 import android.content.Context
-import android.text.TextUtils
 import android.os.Environment
+import android.text.TextUtils
 import java.io.File
 import java.math.BigDecimal
 

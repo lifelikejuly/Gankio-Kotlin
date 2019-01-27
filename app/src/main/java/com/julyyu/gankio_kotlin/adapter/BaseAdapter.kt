@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.julyyu.gankio_kotlin.model.GankCollection
 
 /**
  * Created by JulyYu on 2017/4/24.
