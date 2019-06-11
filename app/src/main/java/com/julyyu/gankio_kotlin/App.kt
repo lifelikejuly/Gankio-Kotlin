@@ -12,6 +12,13 @@ class App : Application() {
         super.onCreate()
         context = applicationContext
 //        FIR.init(this)
+        Realm.init(this)
+        val configuration = RealmConfiguration.Builder()
+                .name("sees.realm")
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build()
+        Realm.setDefaultConfiguration(configuration)
     }
 
     companion object {
